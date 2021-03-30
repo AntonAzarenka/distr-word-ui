@@ -1,0 +1,59 @@
+<nav class="navbar navbar-light bg-light justify-content-between">
+  <a class="navbar-brand">Distribution Words</a>
+  <form class="form-inline">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/words">
+        <mat-icon>voicemail</mat-icon>
+        <span>Main</span>
+      </button>
+      <button mat-menu-item routerLink="/words/setting">
+        <mat-icon>dialpad</mat-icon>
+        <span>Words configuration</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </mat-menu>
+
+    <div *ngIf="isLoggedIn; else loggedOut">
+      <button mat-raised-button color="primary" (click)="logout()" class="button_signin">Logout</button>
+    </div>
+    <ng-template #loggedOut>
+      <form class="form-inline" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div>
+          <mat-form-field class="login-full-width">
+            <input matInput [(ngModel)]="form.username" placeholder="Введите email" name="username"
+                   #username="ngModel" required="true"/>
+            <mat-hint *ngIf="f.submitted && username.invalid">
+              <mat-hint *ngIf="username.errors.required">Необходимо ввести email</mat-hint>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="login-full-width">
+            <input type="password" matInput [(ngModel)]="form.password" #password="ngModel"
+                   placeholder="Введите пароль" name="password" required="true" minlength="6"/>
+            <mat-hint *ngIf="f.submitted && password.invalid">
+              <mat-hint *ngIf="password.errors.required">Нобходимо ввести пароль</mat-hint>
+              <mat-hint *ngIf="password.errors.minlength">Пароль должен быть не менее 6 символов</mat-hint>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="">
+          <mat-card-actions>
+            <button mat-raised-button color="primary" class="button_signin">Login</button>
+            <div>
+              <mat-hint color="warn" *ngIf="f.submitted && isLoginFailed" class="alert alert-danger">
+                Login failed: {{errorMessage}}
+              </mat-hint>
+            </div>
+          </mat-card-actions>
+        </div>
+      </form>
+    </ng-template>
+  </form>
+</nav>
