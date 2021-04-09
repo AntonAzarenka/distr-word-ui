@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  URI: 'https://meal-check-helper.herokuapp.com'
+  URI: 'https://distribution-words.herokuapp.com/'
 };
