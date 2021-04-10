@@ -11,12 +11,17 @@
         </mat-form-field>
       </li>
       <li class="nav-item dropdown dropdown-cust">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" >
           <mat-label>Sacrifice</mat-label>
-          <mat-select [(value)]="selectedParticipant">
-            <mat-option [value]="option.id" *ngFor="let option of participants">{{ option.name }}</mat-option>
-          </mat-select>
+          <select  matNativeControl (change)="resetTable($event)">
+            <option  [value]="option.id" *ngFor="let option of participants">{{ option.name }}</option>
+          </select>
         </mat-form-field>
+      </li>
+      <li>
+        <div *ngIf="isLogged">
+          <button mat-raised-button class="give" color="green" (click)="getMoney()">Give me money</button>
+        </div>
       </li>
     </ul>
   </div>
@@ -31,7 +36,7 @@
           <button mat-raised-button class="button" color="Basic" (click)="getTranslate()">Translate</button>
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-9">
         <div>
           <h1 *ngIf="!isTranslated">{{wordTo.word}}</h1>
         </div>
@@ -39,26 +44,28 @@
           <h1 *ngIf="isTranslated">{{wordTo.word}} - {{wordTo.translate}}</h1>
         </div>
       </div>
-      <br>
+      <div class="col2">
+          <h1>{{money.message}}</h1>
+      </div>
     </div>
   </div>
-  <!-- Table-->
+  <!-- Table--> 
   <div *ngIf="isLogged" class="row">
     <div class="col-6">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
-
-        <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> N </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+        
         <ng-container matColumnDef="word">
           <th mat-header-cell *matHeaderCellDef> WORD </th>
           <td mat-cell *matCellDef="let element"> {{element.word}} </td>
         </ng-container>
 
-        <!-- Name Column -->
         <ng-container matColumnDef="translate">
-          <th mat-header-cell *matHeaderCellDef> TRANSLATE</th>
+          <th mat-header-cell *matHeaderCellDef> TRANSLATE </th>
           <td mat-cell *matCellDef="let element"> {{element.translate}} </td>
         </ng-container>
 

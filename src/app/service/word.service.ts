@@ -21,6 +21,10 @@ export class WordService {
     return this.http.get(this.url + '/translate');
   }
 
+  getMoney(): Observable<any> {
+    return this.http.get(this.url + 'money');
+  }
+
   // tslint:disable-next-line:typedef
   pushFileToStorage(file: File) {
     const formdata: FormData = new FormData();
