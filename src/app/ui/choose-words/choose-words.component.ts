@@ -4,6 +4,25 @@ import {Participant} from '../../domain/participant';
 
 import {WordService} from '../../service/word.service';
 import {TokenStorageService} from '../../auth/token-storage.service';
+import {Word} from '../../domain/word';
+import {
+  AfterContentInit,
+  ContentChildren,
+  Input,
+  AfterViewInit,
+  QueryList,
+  ViewChild,
+  ContentChild,
+} from '@angular/core';
+import {MatSort} from '@angular/material/sort';
+import {
+  MatColumnDef,
+  MatHeaderRowDef,
+  MatNoDataRow,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource
+} from '@angular/material/table';
 
 interface Language {
   title: string;
@@ -16,10 +35,14 @@ interface WordTo {
   translate: string;
 }
 
+interface Message {
+  message: string;
+}
+
 @Component({
   selector: 'app-choose-words',
   templateUrl: './choose-words.component.html',
-  styleUrls: ['./choose-words.component.css']
+  styleUrls: ['./choose-words.component.css'],
 })
 export class ChooseWordsComponent implements OnInit {
 
@@ -27,8 +50,10 @@ export class ChooseWordsComponent implements OnInit {
               private tokenStorage: TokenStorageService) {
   }
 
-  dataSource: WordTo;
-  displayedColumns: string[] = ['word', 'translate'];
+  Collection:Array<Word> = new Array<Word>();
+
+  dataSource = new MatTableDataSource<Word>();
+  displayedColumns: string[] = ['id','word', 'translate'];
 
   languages: Language[] = [
     {title: 'RU', description: 'It will get only Russian words!'},
@@ -41,6 +66,11 @@ export class ChooseWordsComponent implements OnInit {
   selectedParticipant: string;
   isTranslated = false;
   isLogged = false;
+  countOfWords: number = 1;
+
+  money = new class implements Message{
+    message: string;
+  };
 
 
   // tslint:disable-next-line:new-parens
@@ -68,19 +98,34 @@ export class ChooseWordsComponent implements OnInit {
 
   getWord(): void {
     this.checkLogged();
+    this.wordTo = null;
     this.isTranslated = false;
     this.wordService.getWord(this.selectedLanguage).subscribe((data: any) => {
       this.wordTo = (data);
-      console.log(data);
     });
   }
 
   getTranslate(): void {
-    this.checkLogged();
+    this.Collection[this.countOfWords-1] = new Word(this.countOfWords, this.wordTo.word, this.wordTo.translate);
+    this.dataSource.data = this.Collection;
+    this.countOfWords= this.countOfWords + 1;
     this.isTranslated = true;
   }
 
   checkLogged(): void{
     this.isLogged = this.tokenStorage.isLogged();
+  }
+
+  resetTable(skill: any) {
+  this.Collection = new Array<Word>();
+   this.dataSource.data = this.Collection;
+   this.countOfWords=1;
+  } 
+
+  getMoney(): void {
+    this.wordService.getMoney().subscribe((data: any) => {
+      console.log(data);
+      this.money = (data);
+    });
   }
 }
