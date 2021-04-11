@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import { Word } from '../domain/word';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +12,8 @@ import {Observable} from 'rxjs';
 export class WordService {
 
   private url = environment.URI + '/api/words/';
+
+  
 
   constructor(private http: HttpClient) {
   }
@@ -37,5 +42,20 @@ export class WordService {
     });
 
     return this.http.request(req);
+  }
+
+  public getWords() {
+    return this.http.get(this.url);
+  }
+
+  public search(chars: string) {
+
+    var params = new HttpParams();
+    params = params.set('chars', chars)
+    const httpOptions = {
+      params
+    };
+    console.log(httpOptions)
+    return this.http.get(this.url + 'search', httpOptions);
   }
 }

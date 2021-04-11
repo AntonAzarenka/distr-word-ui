@@ -32,7 +32,6 @@ export class MainNavComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.form);
 
     this.loginInfo = new AuthLoginInfo(
       this.form.username,
@@ -47,7 +46,7 @@ export class MainNavComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = this.tokenStorage.isLogged();
         this.roles = this.tokenStorage.getAuthorities();
-       this.reloadPage();
+        this.reloadPage();
       },
       error => {
         console.log(error);

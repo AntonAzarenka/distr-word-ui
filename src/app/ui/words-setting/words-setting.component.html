@@ -1,15 +1,22 @@
+<div *ngIf="isLogged">
+  <div class="upload">
+    <div class="load-file">
+      <label >Закрузка файла</label>
+    </div>
+    <div class="upload-button">
+      <label mat-raised-button class="button" color="Basic"> <input type="file" (change)="selectFile($event)"></label>
 
-<div *ngIf="currentFileUpload" class="progress">
-  <div class="progress-bar progress-bar-info progress-bar-striped"
-       role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-       aria-valuemin="0" aria-valuemax="100"
-       [ngStyle]="{width:progress.percentage+'%'}">
-    {{progress.percentage}}%</div>
+      <button class="btn btn-success"  (click)="upload()">Upload</button>
+    </div>
+    <div *ngIf="currentFileUpload" class="progress">
+      <div class="progress-bar progress-bar-info progress-bar-striped"
+          role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+          aria-valuemin="0" aria-valuemax="100"
+          [ngStyle]="{width:progress.percentage+'%'}">
+        {{progress.percentage}}%</div>
+    </div>
+  </div>
+  <div class="table-words">
+    <app-words-table></app-words-table>
+  </div>
 </div>
-
-<label class="btn btn-default">
-  <input type="file" (change)="selectFile($event)">
-</label>
-
-<button class="btn btn-success" [disabled]="!selectedFiles"
-        (click)="upload()">Upload</button>
