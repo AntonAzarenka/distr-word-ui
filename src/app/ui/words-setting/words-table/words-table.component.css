@@ -1,0 +1,19 @@
+table {
+    width: 100%
+}
+.table-width {
+    width: 100%;
+}
+.table-container {
+    height: 400px;
+    overflow: auto;
+    min-height: 200px;
+}
+
+tr.mat-header-row {
+    background-color: rgb(241, 240, 240);
+}
+
+.search {
+    padding-bottom: 10px;
+}

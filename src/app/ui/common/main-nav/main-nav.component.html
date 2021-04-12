@@ -6,21 +6,18 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/words">
-        <mat-icon>voicemail</mat-icon>
         <span>Main</span>
       </button>
       <button mat-menu-item routerLink="/words/setting">
-        <mat-icon>dialpad</mat-icon>
         <span>Words configuration</span>
       </button>
       <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
         <span>Disable alerts</span>
       </button>
     </mat-menu>
 
     <div *ngIf="isLoggedIn; else loggedOut">
-      <button mat-raised-button color="primary" (click)="logout()" class="button_signin">Logout</button>
+      <button mat-raised-button color="primary" (click)="logout()" class="button_signin btn-l">Logout</button>
     </div>
     <ng-template #loggedOut>
       <form class="form-inline" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>

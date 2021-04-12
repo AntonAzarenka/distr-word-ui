@@ -49,9 +49,10 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { WordsSettingComponent } from './words-setting/words-setting.component';
+import { WordsTableComponent } from './words-setting/words-table/words-table.component';
 
 @NgModule({
-  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent],
+  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent],
   exports: [
     LayoutComponent,
     MainNavComponent,
