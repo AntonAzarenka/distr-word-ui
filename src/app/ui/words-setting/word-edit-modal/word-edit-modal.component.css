@@ -1,0 +1,9 @@
+mat-form-field {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    width: 600px;
+}
+mat-dialog-actions{
+    text-align: start;
+}

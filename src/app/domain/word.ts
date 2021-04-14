@@ -1,10 +1,10 @@
 export class Word {
-  id: number;
+  uid: string;
   word: string;
   translate: string;
 
-  constructor(id: number, word: string, trans: string){
-    this.id = id;
+  constructor(id: string, word: string, trans: string){
+    this.uid = id,
     this.word = word;
     this.translate = trans;
   }

@@ -106,7 +106,7 @@ export class ChooseWordsComponent implements OnInit {
   }
 
   getTranslate(): void {
-    this.Collection[this.countOfWords-1] = new Word(this.countOfWords, this.wordTo.word, this.wordTo.translate);
+    this.Collection[this.countOfWords-1] = new Word(this.countOfWords.toString(), this.wordTo.word, this.wordTo.translate);
     this.dataSource.data = this.Collection;
     this.countOfWords= this.countOfWords + 1;
     this.isTranslated = true;

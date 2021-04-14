@@ -8,11 +8,8 @@ import { WordService } from 'src/app/service/word.service';
 import {Word} from '../../../domain/word';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import { stringify } from '@angular/compiler/src/util';
-
-export interface WordsSett {
-  items: Word[];
-  total_count: number;
-}
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { WordEditModalComponent } from '../word-edit-modal/word-edit-modal.component';
 
 @Component({
   selector: 'app-words-table',
@@ -21,7 +18,7 @@ export interface WordsSett {
 })
 export class WordsTableComponent implements OnInit {
 
-  constructor(private wordService: WordService) { }
+  constructor(private wordService: WordService,  public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getAllWords();
@@ -30,7 +27,7 @@ export class WordsTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  dataSource: Observable<WordsSett>;
+  dataSource: Word[];
   displayedColumns: string[] = ['word', 'translate', 'edit', 'delete'];
 
   resultsLength = 0;
@@ -38,9 +35,8 @@ export class WordsTableComponent implements OnInit {
   isRateLimitReached = false;
 
   getAllWords() {
-    this.wordService.getWords().subscribe((data: Observable<WordsSett>) => {
+    this.wordService.getWords().subscribe((data: any[]) => {
         this.dataSource = (data);
-        console.log(data);
         this.isLoadingResults = false;
     })
   }
@@ -49,19 +45,43 @@ export class WordsTableComponent implements OnInit {
     this.paginator.pageIndex = 0;
   }
 
-  editWord(id: Word){
-    console.log(id)
+  openDialogEditWord(element: Word) {
+    const dialogRef = this.dialog.open(WordEditModalComponent, {
+      width: '1000px',
+      data: {uid: element.uid, word: element.word, translate: element.translate}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result != null){
+        var word = new Word(result.uid, result.word, result.translate)
+        this.save(word);
+      }
+    });
+  }
+
+  save(word: Word) {
+    this.wordService.edit(word).subscribe((data: Word) =>{
+      this.dataSource.push(data);
+    });
+  }
+
+  delete(word: Word) {
+    console.log(this.isLoadingResults);
+    this.wordService.delete(word.uid).subscribe();
+
+      this.dataSource = this.dataSource.filter(item => {
+       return item.uid != word.uid
+      });
   }
 
   search(event){
     console.log(event.target.value);
     if(event.target.value === null){
-      this.wordService.search(" ").subscribe((data: Observable<WordsSett>) => {
+      this.wordService.search(" ").subscribe((data:  any[]) => {
         this.dataSource = data;
         console.log(data);
       })
     } 
-    this.wordService.search(event.target.value).subscribe((data: Observable<WordsSett>) => {
+    this.wordService.search(event.target.value).subscribe((data:  any[]) => {
       this.dataSource = data;
       console.log(data);
     })

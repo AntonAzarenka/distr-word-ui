@@ -50,9 +50,11 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { WordsSettingComponent } from './words-setting/words-setting.component';
 import { WordsTableComponent } from './words-setting/words-table/words-table.component';
+import { WordEditModalComponent } from './words-setting/word-edit-modal/word-edit-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent],
+  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent],
   exports: [
     LayoutComponent,
     MainNavComponent,
@@ -116,6 +118,7 @@ import { WordsTableComponent } from './words-setting/words-table/words-table.com
     OverlayModule,
     PortalModule,
     ScrollingModule,
+    MatDialogModule
   ]
 })
 export class UiModule { }

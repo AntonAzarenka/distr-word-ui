@@ -1,0 +1,20 @@
+<div class="create" style="text-align: center">
+    <h1 mat-dialog-title class="title">Edit window</h1>
+    <!--<h6>Выберите тип модуля:</h6>-->
+
+    <div mat-dialog-content>
+      <mat-form-field>
+        <input class="in" matInput placeholder="word" [(ngModel)]="data.word">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input class="in" matInput placeholder="translate" [(ngModel)]="data.translate">
+      </mat-form-field>
+    </div>
+    <br/>
+    <br/>
+    <div mat-dialog-actions align="center">
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    </div>
+  </div>
