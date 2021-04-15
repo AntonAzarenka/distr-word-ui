@@ -4,16 +4,12 @@ import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Word } from '../domain/word';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class WordService {
-
-  private url = environment.URI + '/api/words/';
-
   
+  private url = environment.URI + '/api/words';
 
   constructor(private http: HttpClient) {
   }
@@ -27,7 +23,7 @@ export class WordService {
   }
 
   getMoney(): Observable<any> {
-    return this.http.get(this.url + 'money');
+    return this.http.get(this.url + '/money');
   }
 
   // tslint:disable-next-line:typedef
@@ -55,7 +51,19 @@ export class WordService {
     const httpOptions = {
       params
     };
-    console.log(httpOptions)
-    return this.http.get(this.url + 'search', httpOptions);
+    return this.http.get(this.url + '/search', httpOptions);
+  }
+
+  delete(id: string) {
+    var params = new HttpParams();
+    params = params.set('uid', id)
+    const httpOptions = {
+      params
+    };
+    return this.http.delete(this.url, httpOptions);
+  }
+
+  edit(word: Word) {
+    return this.http.put(this.url, word);
   }
 }
