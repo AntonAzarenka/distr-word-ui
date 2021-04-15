@@ -8,14 +8,14 @@ import { Word } from '../domain/word';
   providedIn: 'root'
 })
 export class WordService {
-  
+
   private url = environment.URI + '/api/words';
 
   constructor(private http: HttpClient) {
   }
 
   getWord(selectedLanguage: string): Observable<any> {
-    return this.http.get(this.url + selectedLanguage);
+    return this.http.get(this.url + '/' + selectedLanguage);
   }
 
   getTranslate(): Observable<any>  {
