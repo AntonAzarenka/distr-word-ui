@@ -5,24 +5,7 @@ import {Participant} from '../../domain/participant';
 import {WordService} from '../../service/word.service';
 import {TokenStorageService} from '../../auth/token-storage.service';
 import {Word} from '../../domain/word';
-import {
-  AfterContentInit,
-  ContentChildren,
-  Input,
-  AfterViewInit,
-  QueryList,
-  ViewChild,
-  ContentChild,
-} from '@angular/core';
-import {MatSort} from '@angular/material/sort';
-import {
-  MatColumnDef,
-  MatHeaderRowDef,
-  MatNoDataRow,
-  MatRowDef,
-  MatTable,
-  MatTableDataSource
-} from '@angular/material/table';
+import {MatTableDataSource} from '@angular/material/table';
 
 interface Language {
   title: string;
@@ -53,7 +36,7 @@ export class ChooseWordsComponent implements OnInit {
   Collection:Array<Word> = new Array<Word>();
 
   dataSource = new MatTableDataSource<Word>();
-  displayedColumns: string[] = ['id','word', 'translate'];
+  displayedColumns: string[] = ['word', 'translate'];
 
   languages: Language[] = [
     {title: 'RU', description: 'It will get only Russian words!'},
@@ -76,7 +59,7 @@ export class ChooseWordsComponent implements OnInit {
   // tslint:disable-next-line:new-parens
   wordTo = new class implements WordTo {
     uid: string;
-    word: string;
+    word = '';
     translate: string;
   };
 
@@ -98,7 +81,8 @@ export class ChooseWordsComponent implements OnInit {
 
   getWord(): void {
     this.checkLogged();
-    this.wordTo = null;
+    this.wordTo.word = '';
+    this.wordTo.translate = '';
     this.isTranslated = false;
     this.wordService.getWord(this.selectedLanguage).subscribe((data: any) => {
       this.wordTo = (data);
@@ -120,7 +104,7 @@ export class ChooseWordsComponent implements OnInit {
   this.Collection = new Array<Word>();
    this.dataSource.data = this.Collection;
    this.countOfWords=1;
-  } 
+  }
 
   getMoney(): void {
     this.wordService.getMoney().subscribe((data: any) => {

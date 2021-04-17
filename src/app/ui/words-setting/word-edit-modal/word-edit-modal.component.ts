@@ -17,11 +17,10 @@ interface DialogCreateDetailData {
 export class WordEditModalComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<WordEditModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogCreateDetailData) { }
+              @Inject(MAT_DIALOG_DATA) public data: DialogCreateDetailData) { }
 
   ngOnInit(): void {
   }
-
 
   onNoClick(): void {
     this.dialogRef.close();

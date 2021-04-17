@@ -1,20 +1,62 @@
 <div *ngIf="isLogged">
-  <div class="upload">
-    <div class="load-file">
-      <label >Закрузка файла</label>
-    </div>
-    <div class="upload-button">
-      <label mat-raised-button class="button" color="Basic"> <input type="file" (change)="selectFile($event)"></label>
+  <div class="row upload">
+    <div class=" col-6">
+      <div class="load-file">
+        <label>Loading file</label>
+      </div>
+      <div *ngIf="!isShowedUpload" class="flex-container">
+        <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
+        (click)=showUpload()>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="isShowedUpload" class="upload-button">
 
-      <button class="btn btn-success"  (click)="upload()">Upload</button>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" (click)="upload()" type="button">Upload</button>
+          </div>
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile03" (change)="selectFile($event)">
+            <label class="custom-file-label" for="inputGroupFile03">Choose file</label>
+          </div>
+        </div>
+      </div>
     </div>
-    <div *ngIf="currentFileUpload" class="progress">
-      <div class="progress-bar progress-bar-info progress-bar-striped"
-          role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
-          aria-valuemin="0" aria-valuemax="100"
-          [ngStyle]="{width:progress.percentage+'%'}">
-        {{progress.percentage}}%</div>
+    <div class="col-6">
+      <div class="load-file">
+        <label>Adding word</label>
+      </div>
+      <div *ngIf="!isShowedAdding" class="flex-container">
+        <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
+        (click)=showAdding()>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="isShowedAdding" class="inputs">
+        <mat-form-field class="example-form-field">
+          <mat-label>Add new word</mat-label>
+          <input matInput type="text" [(ngModel)]="word">
+          <button mat-button *ngIf="word">
+          </button>
+        </mat-form-field>
+
+       <mat-form-field class="example-form-field">
+          <mat-label>Add translate</mat-label>
+          <input matInput type="text" [(ngModel)]="translate">
+          <button mat-button *ngIf="translate">
+          </button>
+        </mat-form-field>
+        <button class="btn btn-outline-secondary" (click)="save()">Save</button>
+      </div>
     </div>
+  </div>
+  <div *ngIf="currentFileUpload" class="progress">
+    <div class="progress-bar progress-bar-info progress-bar-striped"
+         role="progressbar" attr.aria-value now="{{progress.percentage}}"
+         aria-valuemin="0" aria-valuemax="100"
+         [ngStyle]="{width:progress.percentage+'%'}">
+      {{progress.percentage}}%</div>
   </div>
   <div class="table-words">
     <app-words-table></app-words-table>

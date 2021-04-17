@@ -20,70 +20,72 @@ export class WordsTableComponent implements OnInit {
 
   constructor(private wordService: WordService,  public dialog: MatDialog) { }
 
-  ngOnInit(): void {
-    this.getAllWords();
-  }
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   dataSource: Word[];
-  displayedColumns: string[] = ['word', 'translate', 'edit', 'delete'];
 
+  displayedColumns: string[] = ['word', 'translate', 'edit', 'delete'];
   resultsLength = 0;
+
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  getAllWords() {
+  ngOnInit(): void {
+    this.getAllWords();
+  }
+
+  getAllWords(): void {
     this.wordService.getWords().subscribe((data: any[]) => {
         this.dataSource = (data);
         this.isLoadingResults = false;
-    })
+        console.log(data);
+    });
   }
 
   resetPaging(): void {
     this.paginator.pageIndex = 0;
   }
 
-  openDialogEditWord(element: Word) {
+  openDialogEditWord(element: Word): void {
     const dialogRef = this.dialog.open(WordEditModalComponent, {
       width: '1000px',
       data: {uid: element.uid, word: element.word, translate: element.translate}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result != null){
-        var word = new Word(result.uid, result.word, result.translate)
+      if (result != null){
+        const word = new Word(result.uid, result.word, result.translate);
         this.save(word);
       }
     });
   }
 
-  save(word: Word) {
-    this.wordService.edit(word).subscribe((data: Word) =>{
+  save(word: Word): void {
+    this.wordService.edit(word).subscribe((data: Word) => {
       this.dataSource.push(data);
     });
   }
 
-  delete(word: Word) {
+  delete(word: Word): void {
     console.log(this.isLoadingResults);
     this.wordService.delete(word.uid).subscribe();
 
-      this.dataSource = this.dataSource.filter(item => {
-       return item.uid != word.uid
+    this.dataSource = this.dataSource.filter(item => {
+       return item.uid !== word.uid;
       });
   }
 
-  search(event){
+  search(event): void{
     console.log(event.target.value);
-    if(event.target.value === null){
-      this.wordService.search(" ").subscribe((data:  any[]) => {
+    if (event.target.value === null){
+      this.wordService.search(' ').subscribe((data: any[]) => {
         this.dataSource = data;
         console.log(data);
-      })
-    } 
-    this.wordService.search(event.target.value).subscribe((data:  any[]) => {
+      });
+    }
+    this.wordService.search(event.target.value).subscribe((data: any[]) => {
       this.dataSource = data;
       console.log(data);
-    })
+    });
   }
 }

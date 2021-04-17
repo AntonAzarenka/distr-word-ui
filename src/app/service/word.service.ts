@@ -40,30 +40,34 @@ export class WordService {
     return this.http.request(req);
   }
 
-  public getWords() {
+  public getWords(): Observable<any> {
     return this.http.get(this.url);
   }
 
-  public search(chars: string) {
+  public search(chars: string): Observable<any> {
 
-    var params = new HttpParams();
-    params = params.set('chars', chars)
+    let params = new HttpParams();
+    params = params.set('chars', chars);
     const httpOptions = {
       params
     };
     return this.http.get(this.url + '/search', httpOptions);
   }
 
-  delete(id: string) {
-    var params = new HttpParams();
-    params = params.set('uid', id)
+  delete(id: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('uid', id);
     const httpOptions = {
       params
     };
     return this.http.delete(this.url, httpOptions);
   }
 
-  edit(word: Word) {
+  edit(word: Word): Observable<any> {
     return this.http.put(this.url, word);
+  }
+
+  save(word: Word) {
+    return this.http.post(this.url, word);
   }
 }
