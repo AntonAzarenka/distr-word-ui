@@ -1,0 +1,16 @@
+<div class="create" style="text-align: center">
+  <h1 mat-dialog-title class="title">Edit window</h1>
+
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input class="in" matInput placeholder="word" [(ngModel)]="data.name">
+    </mat-form-field>
+  </div>
+  <br/>
+  <br/>
+  <div mat-dialog-actions align="center">
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  </div>
+</div>
+

@@ -3,14 +3,14 @@
 }
 
 .load-word {
-  margin-top: 10px;
+  padding-top: 50px;
 }
 
 .jumbotron {
   height: 170px;
 }
 
-.col-8 {
+.col-9 {
   text-align: center;
 }
 
@@ -21,6 +21,7 @@
 table {
   width: 100%
 }
+
 .give {
   margin-top: 3px;
   padding: 8px 32px;
@@ -28,3 +29,17 @@ table {
   text-decoration: none;
   display: inline-block;
 }
+
+.col-9 {
+  padding-top: 20px;
+}
+
+mat-header-cell {
+  text-align: center;
+}
+
+.col {
+  padding-top: 20px;
+  text-align: center;
+}
+

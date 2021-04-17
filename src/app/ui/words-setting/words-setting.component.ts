@@ -31,7 +31,7 @@ export class WordsSettingComponent implements OnInit {
   upload() {
     this.progress.percentage = 0;
 
-    this.currentFileUpload = this.selectedFiles.item(0)
+    this.currentFileUpload = this.selectedFiles.item(0);
     this.wordService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.progress.percentage = Math.round(100 * event.loaded / event.total);

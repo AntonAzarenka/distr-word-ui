@@ -52,9 +52,11 @@ import { WordsSettingComponent } from './words-setting/words-setting.component';
 import { WordsTableComponent } from './words-setting/words-table/words-table.component';
 import { WordEditModalComponent } from './words-setting/word-edit-modal/word-edit-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ParticipantComponent } from './participant/participant.component';
+import { ParticipantEditModalComponent } from './participant/participant-edit-modal/participant-edit-modal.component';
 
 @NgModule({
-  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent],
+  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent, ParticipantComponent, ParticipantEditModalComponent],
   exports: [
     LayoutComponent,
     MainNavComponent,

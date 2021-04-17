@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Word} from '../domain/word';
+import {Participant} from '../domain/participant';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +18,18 @@ export class ParticipantService {
   // tslint:disable-next-line:typedef
   public getParticipants() {
     return this.http.get(this.url);
+  }
+
+  delete(id: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('uid', id);
+    const httpOptions = {
+      params
+    };
+    return this.http.delete(this.url, httpOptions);
+  }
+
+  edit(part: Participant): Observable<any> {
+    return this.http.put(this.url, part);
   }
 }

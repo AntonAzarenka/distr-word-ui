@@ -4,15 +4,25 @@
     background-color: rgb(241, 240, 240);
 }
 .load-file {
-    margin-left: 20px;
+    padding-left: 20px;
     margin-top: 5px;
     margin-bottom: 20px;
 }
 
 .upload-button{
-    margin-left: 20px;
+    padding-left: 20px;
     margin-bottom: 5px;
 }
 .table-words {
     padding-top: 10px;
+}
+
+mat-form-field {
+  padding-left: 10px;
+}
+
+.add-word {
+  border: 2px solid rgb(182, 182, 182);
+  border-radius: 15px;
+  background-color: rgb(241, 240, 240);
 }
