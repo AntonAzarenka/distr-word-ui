@@ -39,6 +39,7 @@ export class WordsTableComponent implements OnInit {
     this.wordService.getWords().subscribe((data: any[]) => {
         this.dataSource = (data);
         this.isLoadingResults = false;
+        console.log(data);
     });
   }
 

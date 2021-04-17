@@ -66,4 +66,8 @@ export class WordService {
   edit(word: Word): Observable<any> {
     return this.http.put(this.url, word);
   }
+
+  save(word: Word) {
+    return this.http.post(this.url, word);
+  }
 }
