@@ -2,6 +2,32 @@
   <div class="upload">
     <div class="load-file">
       <label>Add/Edit</label>
+      <div *ngIf="!isShowedAdding" class="flex-container">
+        <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
+        (click)=showAdding()>
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="isShowedAdding" class="row inputs">
+        <div class="col-1 column-one">
+          <mat-form-field class="example-form-field">
+              <mat-label>Add new patricipant</mat-label>
+              <input matInput type="text" [(ngModel)]="translate">
+              <button mat-button *ngIf="translate">
+              </button>
+          </mat-form-field>
+        </div>
+        <div class="col-3">
+            <div>
+              <button mat-icon-button color="primary" (click)="hide()"><mat-icon>close</mat-icon></button>
+            </div>
+            <div>
+                <button class="btn btn-outline-secondary" (click)="save()">Save</button>
+            </div>
+        </div>
+        
+      </div>
+
       <div class="col-12 table-container">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

@@ -21,6 +21,7 @@ export class ParticipantComponent implements OnInit {
   isLogged: boolean;
 
   dataSource: Participant[];
+  isShowedAdding: boolean;
 
   displayedColumns: string[] = ['name', 'edit', 'delete'];
 
@@ -59,9 +60,18 @@ export class ParticipantComponent implements OnInit {
     this.participantService.edit(part).subscribe((data: Participant) => {
       this.dataSource.push(data);
     });
+    this.isShowedAdding = false;
   }
 
   checkLogged(): void {
     this.isLogged = this.tokenStorage.isLogged();
+  }
+
+  showAdding(): void {
+    this.isShowedAdding = true;
+  }
+
+  hide(): void {
+      this.isShowedAdding = false;
   }
 }
