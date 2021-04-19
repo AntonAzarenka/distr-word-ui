@@ -10,6 +10,28 @@
   margin-bottom: 20px;
 }
 
+.header {
+  padding-left: 15px;
+}
+
 table {
   width: 100%;
+}
+
+input {
+  outline: 0;
+}
+
+button {
+  outline: 0;
+}
+
+.inputs {
+  text-align: center;
+  padding-left: 20px;
+}
+
+.column-one {
+  padding-top: 38px;
+  padding-right: 5px;
 }

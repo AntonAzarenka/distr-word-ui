@@ -21,6 +21,9 @@ export class ParticipantComponent implements OnInit {
   isLogged: boolean;
 
   dataSource: Participant[];
+  isShowedAdding: boolean;
+
+  name: string;
 
   displayedColumns: string[] = ['name', 'edit', 'delete'];
 
@@ -50,18 +53,37 @@ export class ParticipantComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
         const part = new Participant(result.id, result.name);
-        this.save(part);
+        this.save(part, true);
       }
     });
   }
 
-  save(part: Participant): void {
-    this.participantService.edit(part).subscribe((data: Participant) => {
-      this.dataSource.push(data);
-    });
+  save(part: Participant, isUpdate: boolean): void {
+    if(isUpdate){
+      this.participantService.edit(part).subscribe((data: Participant) => {
+        this.dataSource.push(data);
+      });
+    } else {
+      this.participantService.save(part).subscribe((data: Participant) => {
+        this.dataSource.push(data);
+      });
+    }
+    this.isShowedAdding = false;
+  }
+
+  addParticipant():void {
+    this.save(new Participant(null, this.name), false);
   }
 
   checkLogged(): void {
     this.isLogged = this.tokenStorage.isLogged();
+  }
+
+  showAdding(): void {
+    this.isShowedAdding = true;
+  }
+
+  hide(): void {
+      this.isShowedAdding = false;
   }
 }

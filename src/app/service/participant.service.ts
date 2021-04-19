@@ -32,4 +32,8 @@ export class ParticipantService {
   edit(part: Participant): Observable<any> {
     return this.http.put(this.url, part);
   }
+
+  save(part: Participant): Observable<any> {
+    return this.http.post(this.url, part);
+  }
 }

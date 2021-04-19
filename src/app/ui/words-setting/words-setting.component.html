@@ -4,14 +4,16 @@
       <div class="load-file">
         <label>Loading file</label>
       </div>
-      <div *ngIf="!isShowedUpload" class="flex-container">
+      <div *ngIf="!isShowedUpload" class="inputs flex-container">
         <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
         (click)=showUpload()>
           <mat-icon>add</mat-icon>
         </button>
       </div>
       <div *ngIf="isShowedUpload" class="upload-button">
-
+        <div>
+          <button mat-icon-button color="primary" (click)="hideUpload()"><mat-icon>close</mat-icon></button>
+        </div>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <button class="btn btn-outline-secondary" (click)="upload()" type="button">Upload</button>
@@ -27,13 +29,16 @@
       <div class="load-file">
         <label>Adding word</label>
       </div>
-      <div *ngIf="!isShowedAdding" class="flex-container">
+      <div *ngIf="!isShowedAdding" class="inputs flex-container">
         <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
         (click)=showAdding()>
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <div *ngIf="isShowedAdding" class="inputs">
+      <div *ngIf="isShowedAdding" class="flex-container">
+        <div>
+          <button mat-icon-button color="primary" (click)="hideAdding()"><mat-icon>close</mat-icon></button>
+        </div>
         <mat-form-field class="example-form-field">
           <mat-label>Add new word</mat-label>
           <input matInput type="text" [(ngModel)]="word">

@@ -68,4 +68,12 @@ export class WordsSettingComponent implements OnInit {
     })
     this.isShowedAdding = false;
   }
+
+  hideAdding(): void {
+    this.isShowedAdding = false;
+  }
+
+  hideUpload(): void {
+    this.isShowedUpload = false;
+  }
 }
