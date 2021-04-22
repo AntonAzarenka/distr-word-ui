@@ -50,28 +50,37 @@ export class WordsTableComponent implements OnInit {
   openDialogEditWord(element: Word): void {
     const dialogRef = this.dialog.open(WordEditModalComponent, {
       width: '1000px',
-      data: {uid: element.uid, word: element.word, translate: element.translate}
+      data: {uid: element.id, word: element.word, translate: element.translate}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result != null){
+      if (result != null) {
         const word = new Word(result.uid, result.word, result.translate);
-        this.save(word);
+        this.edit(word);
       }
     });
   }
 
+  edit(word: Word): void {
+    console.log(word);
+    this.wordService.edit(word).subscribe(data => {
+      this.getAllWords();   
+    });
+  }
+
   save(word: Word): void {
-    this.wordService.edit(word).subscribe((data: Word) => {
-      this.dataSource.push(data);
+    console.log(word);
+    this.wordService.save(word).subscribe((data: any) => {
+      this.dataSource = this.dataSource.filter(item => {
+        return item !== null;
+       });
     });
   }
 
   delete(word: Word): void {
-    console.log(this.isLoadingResults);
-    this.wordService.delete(word.uid).subscribe();
-
+    console.log(word.id);
+    this.wordService.delete(word.id).subscribe();
     this.dataSource = this.dataSource.filter(item => {
-       return item.uid !== word.uid;
+       return item.id !== word.id;
       });
   }
 
@@ -80,12 +89,10 @@ export class WordsTableComponent implements OnInit {
     if (event.target.value === null){
       this.wordService.search(' ').subscribe((data: any[]) => {
         this.dataSource = data;
-        console.log(data);
       });
     }
     this.wordService.search(event.target.value).subscribe((data: any[]) => {
-      this.dataSource = data;
-      console.log(data);
+      this.dataSource = data; 
     });
   }
 }

@@ -121,6 +121,7 @@ import { ParticipantEditModalComponent } from './participant/participant-edit-mo
     PortalModule,
     ScrollingModule,
     MatDialogModule
+   
   ]
 })
 export class UiModule { }

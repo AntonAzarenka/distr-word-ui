@@ -3,7 +3,9 @@ import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Word } from '../domain/word';
-
+import { Participant } from '../domain/participant';
+import { TokenStorageService } from '../auth/token-storage.service';
+const TOKEN_HEADER_KEY = 'Authorization';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +13,7 @@ export class WordService {
 
   private url = environment.URI + '/api/words';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private token: TokenStorageService) {
   }
 
   getWord(selectedLanguage: string): Observable<any> {
@@ -22,8 +24,15 @@ export class WordService {
     return this.http.get(this.url + '/translate');
   }
 
-  getMoney(): Observable<any> {
-    return this.http.get(this.url + '/money');
+  getMoney(word: string, participant: string): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('participant', participant);
+    params = params.set('word', word);
+    const httpOptions = {
+      params
+    };
+
+    return this.http.get(environment.URI + '/api/money/', httpOptions);
   }
 
   // tslint:disable-next-line:typedef
@@ -32,10 +41,12 @@ export class WordService {
 
     formdata.append('file', file);
 
-    const req = new HttpRequest('POST', this.url, formdata, {
+    let req = new HttpRequest('POST', this.url, formdata, {
       reportProgress: true,
       responseType: 'text'
     });
+    const token = this.token.getToken();
+    req = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
 
     return this.http.request(req);
   }
@@ -67,7 +78,7 @@ export class WordService {
     return this.http.put(this.url, word);
   }
 
-  save(word: Word) {
+  save(word: Word): Observable<any> {
     return this.http.post(this.url, word);
   }
 }

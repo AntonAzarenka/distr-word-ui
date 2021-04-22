@@ -1,21 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, PipeTransform} from '@angular/core';
 import {TokenStorageService} from '../../auth/token-storage.service';
 import {Participant} from '../../domain/participant';
 import {ParticipantService} from '../../service/participant.service';
-import {WordEditModalComponent} from '../words-setting/word-edit-modal/word-edit-modal.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ParticipantEditModalComponent} from './participant-edit-modal/participant-edit-modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-participant',
   templateUrl: './participant.component.html',
   styleUrls: ['./participant.component.css']
 })
-export class ParticipantComponent implements OnInit {
+
+export class ParticipantComponent implements OnInit{
 
   constructor(private tokenStorage: TokenStorageService,
               private participantService: ParticipantService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public snackBar: MatSnackBar) {
   }
 
   isLogged: boolean;
@@ -60,12 +62,12 @@ export class ParticipantComponent implements OnInit {
 
   save(part: Participant, isUpdate: boolean): void {
     if(isUpdate){
-      this.participantService.edit(part).subscribe((data: Participant) => {
-        this.dataSource.push(data);
+      this.participantService.edit(part).subscribe((data: any) => {
+        this.getParticipants();
       });
     } else {
-      this.participantService.save(part).subscribe((data: Participant) => {
-        this.dataSource.push(data);
+      this.participantService.save(part).subscribe((data: any) => {
+        this.getParticipants();
       });
     }
     this.isShowedAdding = false;

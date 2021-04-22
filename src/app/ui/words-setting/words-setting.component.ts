@@ -3,6 +3,8 @@ import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {WordService} from '../../service/word.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { Word } from 'src/app/domain/word';
+import { WordsTableComponent } from './words-table/words-table.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-words-setting',
@@ -11,9 +13,12 @@ import { Word } from 'src/app/domain/word';
 })
 export class WordsSettingComponent implements OnInit {
 
-  constructor(private wordService: WordService, private tokenStorage: TokenStorageService) { }
+  constructor(private wordService: WordService, 
+              private tokenStorage: TokenStorageService, 
+              private wt: WordsTableComponent,
+              private snackBar: MatSnackBar) { }
 
-  selectedFiles: FileList;
+  selectedFiles: FileList = null;
   currentFileUpload: File;
   progress: { percentage: number } = { percentage: 0 };
 
@@ -37,17 +42,29 @@ export class WordsSettingComponent implements OnInit {
   // tslint:disable-next-line:typedef
   upload() {
     this.progress.percentage = 0;
-
-    this.currentFileUpload = this.selectedFiles.item(0);
-    this.wordService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    });
-    this.selectedFiles = undefined;
-    this.isShowedUpload = false;
+    if(this.selectedFiles !== null) {
+      this.currentFileUpload = this.selectedFiles.item(0);
+      this.wordService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          this.snackBar.open('File is completely uploaded!', 'INFO', {
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            duration: 4000          
+          });  
+          this.currentFileUpload = null;
+        }
+      });
+      this.selectedFiles = null;
+      this.isShowedUpload = false;
+    } else {
+      this.snackBar.open("Please choose a file to upload", 'INFO', {
+        horizontalPosition: 'left',
+        verticalPosition: 'top',
+        duration: 4000,
+      });    
+    }
   }
 
   checkLogged(): void{
@@ -63,10 +80,9 @@ export class WordsSettingComponent implements OnInit {
   }
 
   save(): void {
-    this.wordService.save(new Word('',this.word, this.translate)).subscribe((data: Word)=> {
-      this.wordObject = data;
-    })
+    this.wt.save(new Word('',this.word, this.translate));
     this.isShowedAdding = false;
+    window.location.reload();
   }
 
   hideAdding(): void {
