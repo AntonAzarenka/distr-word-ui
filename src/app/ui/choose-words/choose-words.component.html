@@ -13,9 +13,9 @@
       <li class="nav-item dropdown dropdown-cust">
         <mat-form-field appearance="outline" >
           <mat-label>Sacrifice</mat-label>
-          <select  matNativeControl (change)="resetTable($event)">
-            <option  [value]="option.id" *ngFor="let option of participants">{{ option.name }}</option>
-          </select>
+          <mat-select  [(value)]="selectedParticipant">
+            <mat-option  [value]="participant.id" *ngFor="let participant of participants">{{ participant.name }}</mat-option>
+          </mat-select >
         </mat-form-field>
       </li>
       <li>
@@ -75,7 +75,3 @@
     </div>
   </div>
 </div>
-
-
-
-

@@ -5,6 +5,7 @@ import {AuthService} from '../../../auth/auth.service';
 import {TokenStorageService} from '../../../auth/token-storage.service';
 import {Router} from '@angular/router';
 import { ChooseWordsComponent } from '../../choose-words/choose-words.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-main-nav',
@@ -14,11 +15,10 @@ import { ChooseWordsComponent } from '../../choose-words/choose-words.component'
 })
 export class MainNavComponent implements OnInit {
 
-  constructor(private wordService: WordService,
-              private authService: AuthService,
+  constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
-              private router: Router,
-              private chooseWords: ChooseWordsComponent) { }
+              private chooseWords: ChooseWordsComponent,
+              public snackBar: MatSnackBar) { }
 
   form: any = {};
   isLoggedIn = false;
@@ -35,11 +35,12 @@ export class MainNavComponent implements OnInit {
 
     this.loginInfo = new AuthLoginInfo(
       this.form.username,
-      this.form.password);
+      this.form.password
+      );
 
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUsername(data.username);
         this.tokenStorage.saveAuthorities(data.authorities);
         this.chooseWords.checkLogged();
@@ -49,7 +50,6 @@ export class MainNavComponent implements OnInit {
         this.reloadPage();
       },
       error => {
-        console.log(error);
         this.errorMessage = error.error.message;
         this.isLoginFailed = true;
       }
