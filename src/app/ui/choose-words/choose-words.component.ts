@@ -81,12 +81,6 @@ export class ChooseWordsComponent implements OnInit {
     this.participantService.getParticipants().subscribe((data: any[]) => {
       this.participants = (data);
       this.selectedParticipant = this.participants[0].id;
-    },error=>{
-      this.snackBar.open(error.error.message, 'INFO', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 4500,
-      }); 
     });
   }
 
