@@ -2,6 +2,8 @@
   border: 2px solid rgb(182, 182, 182);
   border-radius: 15px;
   background-color: rgb(241, 240, 240);
+  opacity: 75%;
+  font-weight: 500;
 }
 
 .load-file {
@@ -16,6 +18,8 @@
 
 table {
   width: 100%;
+  opacity: 75%;
+  font-weight: 500;
 }
 
 input {
@@ -34,4 +38,9 @@ button {
 .column-one {
   padding-top: 38px;
   padding-right: 5px;
+}
+
+.header-row{
+  background-color: rgba(18, 54, 54, 0.24);
+  font-weight: 900;
 }

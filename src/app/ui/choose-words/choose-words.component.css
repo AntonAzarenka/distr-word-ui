@@ -1,9 +1,25 @@
+.container {
+  font-weight: 800;
+}
+
 .dropdown-cust {
   margin-right: 25px;
 }
 
 .load-word {
+  border: 2px solid rgb(182, 182, 182);
+  border-radius: 15px;
+  background-color: rgb(241, 240, 240);
   padding-top: 50px;
+  opacity: 75%;
+}
+
+mat-header-row {
+  font-weight: 600;
+}
+
+button {
+  opacity: 150%;
 }
 
 .jumbotron {
@@ -19,7 +35,9 @@
 }
 
 table {
-  width: 100%
+  width: 100%;
+  opacity: 75%;
+  font-weight: 500;
 }
 
 .give {
@@ -41,5 +59,10 @@ mat-header-cell {
 .col {
   padding-top: 20px;
   text-align: center;
+}
+
+.header-row{
+  background-color: rgba(18, 54, 54, 0.24);
+  font-weight: 900;
 }
 
