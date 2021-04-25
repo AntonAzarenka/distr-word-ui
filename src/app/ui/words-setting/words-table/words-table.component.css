@@ -1,6 +1,7 @@
 table {
   width: 100%;
   font-weight: 500;
+  opacity: 0.75;
 }
 
 .table-width {

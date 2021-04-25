@@ -1,4 +1,5 @@
 .upload {
+  opacity: 0.75;
   border: 2px solid rgb(182, 182, 182);
   border-radius: 15px;
   background-color: rgb(241, 240, 240);
