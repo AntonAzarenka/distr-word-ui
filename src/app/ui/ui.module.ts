@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './common/layout/layout.component';
 import {RouterModule} from '@angular/router';
@@ -54,18 +54,29 @@ import { WordEditModalComponent } from './words-setting/word-edit-modal/word-edi
 import { MatDialogModule } from '@angular/material/dialog';
 import { ParticipantComponent } from './participant/participant.component';
 import { ParticipantEditModalComponent } from './participant/participant-edit-modal/participant-edit-modal.component';
+import { ContributeComponent } from './contribute/contribute.component';
+import {ChartModule} from 'primeng/chart';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
-  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent, ParticipantComponent, ParticipantEditModalComponent],
+  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent, ParticipantComponent, ParticipantEditModalComponent, ContributeComponent],
+  schemas:  [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   exports: [
     LayoutComponent,
     MainNavComponent,
     ChooseWordsComponent,
-    MatMenuModule
+    MatMenuModule,
+    ChartModule,
+    ContributeComponent
   ],
   imports: [
+    BrowserModule,
+
     CommonModule,
+    ChartModule,
     RouterModule,
+    BrowserAnimationsModule,
     MatSidenavModule,
     MatToolbarModule,
     MatListModule,
@@ -120,8 +131,8 @@ import { ParticipantEditModalComponent } from './participant/participant-edit-mo
     OverlayModule,
     PortalModule,
     ScrollingModule,
-    MatDialogModule
-   
+    MatDialogModule,
+    ChartModule
   ]
 })
 export class UiModule { }

@@ -6,7 +6,7 @@ import {WordService} from '../../service/word.service';
 import {TokenStorageService} from '../../auth/token-storage.service';
 import {Word} from '../../domain/word';
 import {MatTableDataSource} from '@angular/material/table';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 interface Language {
   title: string;
@@ -31,10 +31,10 @@ interface Message {
 export class ChooseWordsComponent implements OnInit {
 
   constructor(private participantService: ParticipantService, private wordService: WordService,
-              private tokenStorage: TokenStorageService,  private snackBar: MatSnackBar) {
+              private tokenStorage: TokenStorageService, private snackBar: MatSnackBar) {
   }
 
-  Collection:Array<Word> = new Array<Word>();
+  Collection: Array<Word> = new Array<Word>();
 
   dataSource = new MatTableDataSource<Word>();
   displayedColumns: string[] = ['word', 'translate'];
@@ -53,11 +53,15 @@ export class ChooseWordsComponent implements OnInit {
   participants: Participant[];
   selectedParticipant: string;
   currentParticipant: string;
- 
-  countOfWords: number = 1;
+
+  countOfWords = 1;
   errorMessage = '';
 
-  money = new class implements Message{
+  isGetWord = false;
+  timer = 0;
+
+  // tslint:disable-next-line:new-parens
+  money = new class implements Message {
     message: string;
   };
 
@@ -68,6 +72,9 @@ export class ChooseWordsComponent implements OnInit {
     word: string;
     translate: string;
   };
+
+  timeLeft: number = 60;
+  interval;
 
   // tslint:disable-next-line:new-parens
 
@@ -81,12 +88,6 @@ export class ChooseWordsComponent implements OnInit {
     this.participantService.getParticipants().subscribe((data: any[]) => {
       this.participants = (data);
       this.selectedParticipant = this.participants[0].id;
-    },error=>{
-      this.snackBar.open(error.error.message, 'INFO', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 4500,
-      }); 
     });
   }
 
@@ -99,50 +100,72 @@ export class ChooseWordsComponent implements OnInit {
     this.isTranslated = false;
     this.wordService.getWord(this.selectedLanguage).subscribe((data: any) => {
       this.wordTo = (data);
+      this.startTimer();
     }, error => {
       this.errorMessage = error.error.message;
       this.snackBar.open(this.errorMessage, 'INFO', {
         horizontalPosition: 'center',
         verticalPosition: 'top',
         duration: 4500,
-      });    
+      });
     });
   }
 
   getTranslate(): void {
-    if(this.isGotWord){
+    if (this.isGotWord) {
       this.currentParticipant = this.selectedParticipant;
-      this.Collection[this.countOfWords-1] = new Word(this.countOfWords.toString(), this.wordTo.word, this.wordTo.translate);
+      this.Collection[this.countOfWords - 1] = new Word(this.countOfWords.toString(), this.wordTo.word, this.wordTo.translate);
       this.dataSource.data = this.Collection;
-      this.countOfWords= this.countOfWords + 1;
+      this.countOfWords = this.countOfWords + 1;
       this.isTranslated = true;
+      this.pauseTimer();
     }
   }
 
-  checkLogged(): void{
+  checkLogged(): void {
     this.isLogged = this.tokenStorage.isLogged();
   }
 
-  resetTable() {
-    if(this.currentParticipant != this.selectedParticipant){
+  resetTable(): void {
+    if (this.currentParticipant !== this.selectedParticipant) {
       this.Collection = new Array<Word>();
       this.dataSource.data = this.Collection;
       this.countOfWords = 1;
-      console.log(this.selectedParticipant)
+      console.log(this.selectedParticipant);
     }
+    this.money.message = '';
   }
 
   getMoney(): void {
-    if(this.isGotWord){
+    if (this.isGotWord) {
       this.wordService.getMoney(this.wordTo.word, this.selectedParticipant).subscribe((data: any) => {
         this.money = (data);
       });
+      this.pauseTimer();
     } else {
-      this.snackBar.open("Please get a word before take money", 'INFO', {
+      this.snackBar.open('Please get a word before take money', 'INFO', {
         horizontalPosition: 'left',
         verticalPosition: 'top',
         duration: 4000,
-      });    
+      });
     }
+  }
+
+  startTimer(): void {
+    this.isGetWord = true;
+    this.timer = 25;
+    this.interval = setInterval(() => {
+      if (this.timer > 0) {
+        this.timer--;
+      } else {
+        this.isGetWord = false;
+        this.getTranslate();
+        this.getMoney();
+      }
+    }, 1000);
+  }
+
+  pauseTimer(): void {
+    clearInterval(this.interval);
   }
 }

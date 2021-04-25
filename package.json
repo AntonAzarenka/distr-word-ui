@@ -1,6 +1,6 @@
 {
   "name": "distribution-words-ui",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "engines": {
     "node": "14.x"
   },
@@ -15,7 +15,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~10.0.14",
+    "@angular/animations": "^10.0.14",
     "@angular/cdk": "^10.2.7",
     "@angular/common": "~10.0.14",
     "@angular/compiler": "~10.0.14",
@@ -27,8 +27,14 @@
     "@angular/platform-browser-dynamic": "~10.0.14",
     "@angular/router": "~10.0.14",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
+    "@types/chart.js": "^2.9.32",
     "bootstrap": "^4.5.3",
+    "chart.js": "^3.1.1",
     "express": "^4.17.1",
+    "ng2-charts": "^2.4.2",
+    "primeicons": "^4.1.0",
+    "primeng": "^11.4.0",
+    "primeng-lts": "^10.1.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

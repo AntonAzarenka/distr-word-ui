@@ -6,3 +6,7 @@
     text-decoration: none;
     display: inline-block;
 }
+
+.navbar {
+  background-color: rgba(18, 54, 54, 0.24);
+}

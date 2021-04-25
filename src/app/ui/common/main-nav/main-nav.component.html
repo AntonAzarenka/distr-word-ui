@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light bg-light justify-content-between">
+<nav class="navbar navbar-dark justify-content-between">
   <a class="navbar-brand">Distribution Words</a>
   <form class="form-inline">
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -8,11 +8,14 @@
       <button mat-menu-item routerLink="/words">
         <span>Main</span>
       </button>
-      <button mat-menu-item routerLink="/words/setting">
+      <button [disabled]="!isLoggedIn" mat-menu-item routerLink="/words/setting">
         <span>Words configuration</span>
       </button>
-      <button mat-menu-item routerLink="/participants">
+      <button [disabled]="!isLoggedIn" mat-menu-item routerLink="/participants">
         <span>Participants</span>
+      </button>
+      <button [disabled]="!isLoggedIn"  mat-menu-item routerLink="/contribute">
+        <span>Contribute</span>
       </button>
     </mat-menu>
 

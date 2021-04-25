@@ -1,0 +1,10 @@
+table {
+  width: 100%;
+  opacity: 40%;
+  font-weight: 800;
+}
+
+.header-row{
+  background-color: rgba(18, 54, 54, 0.24);
+  font-weight: 900;
+}
