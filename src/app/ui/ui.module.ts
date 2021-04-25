@@ -55,11 +55,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ParticipantComponent } from './participant/participant.component';
 import { ParticipantEditModalComponent } from './participant/participant-edit-modal/participant-edit-modal.component';
 import { ContributeComponent } from './contribute/contribute.component';
-import {ChartModule} from 'primeng/chart';
+import { ChartModule } from 'primeng/chart';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
+  // tslint:disable-next-line:max-line-length
   declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent, ParticipantComponent, ParticipantEditModalComponent, ContributeComponent],
   schemas:  [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   exports: [

@@ -57,6 +57,12 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.9.5"
+    "typescript": "~3.9.5",
+    "chart.js": "^3.1.1",
+    "express": "^4.17.1",
+    "ng2-charts": "^2.4.2",
+    "primeicons": "^4.1.0",
+    "primeng": "^11.4.0",
+    "primeng-lts": "^10.1.1"
   }
 }

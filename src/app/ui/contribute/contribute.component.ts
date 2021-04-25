@@ -12,26 +12,25 @@ import { ContributeService } from 'src/app/service/contribute.service';
 export class ContributeComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService,
-              private contrService: ContributeService) { 
-                
+              private contrService: ContributeService) {
   }
   dataSource: Contribute[];
   isLogged: boolean;
   displayedColumns: string[] = ['name', 'price'];
-  
+
   ngOnInit(): void {
     this.checkLogged();
     this.getContributes();
   }
 
   checkLogged(): void{
-    this.isLogged = this.tokenStorage.isLogged();  
+    this.isLogged = this.tokenStorage.isLogged();
   }
 
   getContributes(): void {
     this.contrService.getContribute().subscribe((data: Contribute[]) => {
       this.dataSource = (data);
-      console.log(this.dataSource)
+      console.log(this.dataSource);
     });
   }
 }
