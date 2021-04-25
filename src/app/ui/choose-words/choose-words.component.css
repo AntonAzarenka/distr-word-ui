@@ -11,15 +11,10 @@
   border-radius: 15px;
   background-color: rgb(241, 240, 240);
   padding-top: 50px;
-  opacity: 75%;
 }
 
 mat-header-row {
   font-weight: 600;
-}
-
-button {
-  opacity: 150%;
 }
 
 .jumbotron {
@@ -36,7 +31,6 @@ button {
 
 table {
   width: 100%;
-  opacity: 75%;
   font-weight: 500;
 }
 
