@@ -1,23 +1,23 @@
 table {
-    width: 100%;
-  opacity: 75%;
+  width: 100%;
   font-weight: 500;
 }
+
 .table-width {
-    width: 100%;
-}
-.table-container {
-    height: 400px;
-    overflow: auto;
-    min-height: 200px;
+  width: 100%;
 }
 
-.header-row{
+.table-container {
+  height: 400px;
+  overflow: auto;
+  min-height: 200px;
+}
+
+.header-row {
   background-color: rgba(18, 54, 54, 0.24);
   font-weight: 900;
-  opacity: revert;
 }
 
 .search {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }

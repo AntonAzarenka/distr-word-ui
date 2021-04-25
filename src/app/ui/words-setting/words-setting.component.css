@@ -5,7 +5,6 @@
     border-radius: 15px;
     height: 115px;
     background-color: rgb(241, 240, 240);
-  opacity: 75%;
 }
 .load-file {
     padding-left: 20px;
@@ -22,7 +21,6 @@
 
 .table-words {
     padding-top: 10px;
-  opacity: 75%;
 }
 
 mat-form-field {
