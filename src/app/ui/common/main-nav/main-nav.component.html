@@ -8,13 +8,13 @@
       <button mat-menu-item routerLink="/words">
         <span>Main</span>
       </button>
-      <button mat-menu-item routerLink="/words/setting">
+      <button [disabled]="!isLoggedIn" mat-menu-item routerLink="/words/setting">
         <span>Words configuration</span>
       </button>
-      <button mat-menu-item routerLink="/participants">
+      <button [disabled]="!isLoggedIn" mat-menu-item routerLink="/participants">
         <span>Participants</span>
       </button>
-      <button mat-menu-item routerLink="/contribute">
+      <button [disabled]="!isLoggedIn"  mat-menu-item routerLink="/contribute">
         <span>Contribute</span>
       </button>
     </mat-menu>

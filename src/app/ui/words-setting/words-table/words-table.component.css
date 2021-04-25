@@ -15,6 +15,7 @@ table {
 .header-row{
   background-color: rgba(18, 54, 54, 0.24);
   font-weight: 900;
+  opacity: revert;
 }
 
 .search {

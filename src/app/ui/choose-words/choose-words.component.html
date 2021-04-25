@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="col">
-          <h1 style="color: red">{{money.message}}</h1>
+          <h1 style="color: #ffe609">{{money.message}}</h1>
       </div>
     </div>
   </div>
@@ -72,6 +72,12 @@
         <tr class="header-row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
+    </div>
+
+    <div class="col-4">
+      <div *ngIf="isGetWord">
+          <h1 class="timer">{{timer}}</h1>
+      </div>
     </div>
   </div>
 </div>

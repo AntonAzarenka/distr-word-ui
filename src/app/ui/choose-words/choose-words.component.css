@@ -66,3 +66,10 @@ mat-header-cell {
   font-weight: 900;
 }
 
+.timer {
+  display: block;
+  text-align: center;
+  color: #ff0000;
+  font-size: 50px;
+  padding-top: 15px;
+}
