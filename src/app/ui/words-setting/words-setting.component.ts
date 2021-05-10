@@ -13,8 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class WordsSettingComponent implements OnInit {
 
-  constructor(private wordService: WordService, 
-              private tokenStorage: TokenStorageService, 
+  constructor(private wordService: WordService,
+              private tokenStorage: TokenStorageService,
               private wt: WordsTableComponent,
               private snackBar: MatSnackBar) { }
 
@@ -51,8 +51,8 @@ export class WordsSettingComponent implements OnInit {
           this.snackBar.open('File is completely uploaded!', 'INFO', {
             horizontalPosition: 'right',
             verticalPosition: 'bottom',
-            duration: 4000          
-          });  
+            duration: 4000
+          });
           this.currentFileUpload = null;
         }
       });
@@ -63,7 +63,7 @@ export class WordsSettingComponent implements OnInit {
         horizontalPosition: 'left',
         verticalPosition: 'top',
         duration: 4000,
-      });    
+      });
     }
   }
 
@@ -80,7 +80,7 @@ export class WordsSettingComponent implements OnInit {
   }
 
   save(): void {
-    this.wt.save(new Word('',this.word, this.translate));
+    this.wt.save(new Word('', this.word, this.translate, false));
     this.isShowedAdding = false;
     window.location.reload();
   }

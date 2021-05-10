@@ -73,7 +73,6 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   imports: [
     BrowserModule,
-
     CommonModule,
     ChartModule,
     RouterModule,
