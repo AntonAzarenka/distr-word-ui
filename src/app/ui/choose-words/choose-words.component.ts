@@ -94,18 +94,19 @@ export class ChooseWordsComponent implements OnInit {
     this.isGotWord = true;
     this.checkLogged();
     this.resetTable();
-    this.wordTo.word = '';
-    this.wordTo.translate = '';
-    this.isTranslated = false;
+    this.resetWord();
     this.wordService.getWord(this.selectedLanguage, this.selectedParticipant.id).subscribe((data: any) => {
       this.wordTo = (data);
-      console.log(this.wordTo.isToday);
-      if (this.wordTo.isToday === true) {
-        this.timer = 10;
-      } else {
-        this.timer = 25;
-      }
-      this.startTimer();
+      setTimeout(() => {
+        if (this.wordTo.today) {
+          this.timer = 10;
+          this.startTimer();
+        } else {
+          this.timer = 25;
+          this.startTimer();
+
+        }
+      }, 500);
     }, error => {
       this.errorMessage = error.error.message;
       this.snackBar.open(this.errorMessage, 'INFO', {
@@ -114,6 +115,14 @@ export class ChooseWordsComponent implements OnInit {
         duration: 4500,
       });
     });
+  }
+
+  resetWord(): void {
+    this.wordTo.word = '';
+    this.wordTo.translate = '';
+    this.wordTo.today = false;
+    this.isTranslated = false;
+    this.money.price = '';
   }
 
   getTranslate(): void {
@@ -146,6 +155,14 @@ export class ChooseWordsComponent implements OnInit {
         this.money = (data);
       });
       this.pauseTimer();
+      setTimeout(() => {
+        console.log(this.money);
+        this.snackBar.open(this.money.message, 'INFO', {
+          horizontalPosition: 'left',
+          verticalPosition: 'top',
+          duration: 4000,
+        });
+      }, 500);
     } else {
       this.snackBar.open('Please get a word before take money', 'INFO', {
         horizontalPosition: 'left',
@@ -153,9 +170,16 @@ export class ChooseWordsComponent implements OnInit {
         duration: 4000,
       });
     }
+    this.getTranslate();
   }
 
   startTimer(): void {
+    if (this.wordTo.today) {
+      this.timer = 10;
+
+    } else {
+      this.timer = 25;
+    }
     this.isGetWord = true;
     this.interval = setInterval(() => {
       if (this.timer > 0) {
