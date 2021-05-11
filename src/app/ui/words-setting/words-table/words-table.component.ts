@@ -54,7 +54,7 @@ export class WordsTableComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
-        const word = new Word(result.uid, result.word, result.translate);
+        const word = new Word(result.uid, result.word, result.translate, false);
         this.edit(word);
       }
     });
@@ -63,7 +63,7 @@ export class WordsTableComponent implements OnInit {
   edit(word: Word): void {
     console.log(word);
     this.wordService.edit(word).subscribe(data => {
-      this.getAllWords();   
+      this.getAllWords();
     });
   }
 
@@ -92,7 +92,7 @@ export class WordsTableComponent implements OnInit {
       });
     }
     this.wordService.search(event.target.value).subscribe((data: any[]) => {
-      this.dataSource = data; 
+      this.dataSource = data;
     });
   }
 }

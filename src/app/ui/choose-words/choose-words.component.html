@@ -14,7 +14,7 @@
         <mat-form-field appearance="outline" >
           <mat-label>Sacrifice</mat-label>
           <mat-select  [(value)]="selectedParticipant">
-            <mat-option  [value]="participant.id" *ngFor="let participant of participants">{{ participant.name }}</mat-option>
+            <mat-option  [value]="participant" *ngFor="let participant of participants">{{ participant.name }}</mat-option>
           </mat-select >
         </mat-form-field>
       </li>
@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="col">
-          <h1 style="color: #ffe609">{{money.message}}</h1>
+          <h1 style="color: #ffe609">{{money.price}}</h1>
       </div>
     </div>
   </div>

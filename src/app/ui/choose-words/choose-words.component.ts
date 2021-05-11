@@ -7,6 +7,7 @@ import {TokenStorageService} from '../../auth/token-storage.service';
 import {Word} from '../../domain/word';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {PaymentInformationTo} from '../../domain/paymentInformationTo';
 
 interface Language {
   title: string;
@@ -51,8 +52,8 @@ export class ChooseWordsComponent implements OnInit {
 
   selectedLanguage = this.languages[2].title;
   participants: Participant[];
-  selectedParticipant: string;
-  currentParticipant: string;
+  selectedParticipant: Participant;
+  currentParticipant: Participant;
 
   countOfWords = 1;
   errorMessage = '';
@@ -63,17 +64,14 @@ export class ChooseWordsComponent implements OnInit {
   // tslint:disable-next-line:new-parens
   money = new class implements Message {
     message: string;
+    price: string;
   };
 
 
   // tslint:disable-next-line:new-parens
-  wordTo = new class implements WordTo {
-    uid: string;
-    word: string;
-    translate: string;
-  };
+  wordTo: Word = new Word(' ', '', '', false);
 
-  timeLeft: number = 60;
+  // timeLeft: number = 60;
   interval;
 
   // tslint:disable-next-line:new-parens
@@ -87,20 +85,28 @@ export class ChooseWordsComponent implements OnInit {
     this.checkLogged();
     this.participantService.getParticipants().subscribe((data: any[]) => {
       this.participants = (data);
-      this.selectedParticipant = this.participants[0].id;
+      this.selectedParticipant = this.participants[0];
     });
   }
 
   getWord(): void {
+    this.pauseTimer();
     this.isGotWord = true;
     this.checkLogged();
     this.resetTable();
-    this.wordTo.word = '';
-    this.wordTo.translate = '';
-    this.isTranslated = false;
-    this.wordService.getWord(this.selectedLanguage).subscribe((data: any) => {
+    this.resetWord();
+    this.wordService.getWord(this.selectedLanguage, this.selectedParticipant.id).subscribe((data: any) => {
       this.wordTo = (data);
-      this.startTimer();
+      setTimeout(() => {
+        if (this.wordTo.today) {
+          this.timer = 10;
+          this.startTimer();
+        } else {
+          this.timer = 25;
+          this.startTimer();
+
+        }
+      }, 500);
     }, error => {
       this.errorMessage = error.error.message;
       this.snackBar.open(this.errorMessage, 'INFO', {
@@ -111,10 +117,18 @@ export class ChooseWordsComponent implements OnInit {
     });
   }
 
+  resetWord(): void {
+    this.wordTo.word = '';
+    this.wordTo.translate = '';
+    this.wordTo.today = false;
+    this.isTranslated = false;
+    this.money.price = '';
+  }
+
   getTranslate(): void {
     if (this.isGotWord) {
       this.currentParticipant = this.selectedParticipant;
-      this.Collection[this.countOfWords - 1] = new Word(this.countOfWords.toString(), this.wordTo.word, this.wordTo.translate);
+      this.Collection[this.countOfWords - 1] = new Word(this.countOfWords.toString(), this.wordTo.word, this.wordTo.translate, false);
       this.dataSource.data = this.Collection;
       this.countOfWords = this.countOfWords + 1;
       this.isTranslated = true;
@@ -131,17 +145,24 @@ export class ChooseWordsComponent implements OnInit {
       this.Collection = new Array<Word>();
       this.dataSource.data = this.Collection;
       this.countOfWords = 1;
-      console.log(this.selectedParticipant);
     }
     this.money.message = '';
   }
 
   getMoney(): void {
     if (this.isGotWord) {
-      this.wordService.getMoney(this.wordTo.word, this.selectedParticipant).subscribe((data: any) => {
+      this.wordService.getMoney(new PaymentInformationTo(this.wordTo, this.selectedParticipant)).subscribe((data: any) => {
         this.money = (data);
       });
       this.pauseTimer();
+      setTimeout(() => {
+        console.log(this.money);
+        this.snackBar.open(this.money.message, 'INFO', {
+          horizontalPosition: 'left',
+          verticalPosition: 'top',
+          duration: 4000,
+        });
+      }, 500);
     } else {
       this.snackBar.open('Please get a word before take money', 'INFO', {
         horizontalPosition: 'left',
@@ -149,11 +170,17 @@ export class ChooseWordsComponent implements OnInit {
         duration: 4000,
       });
     }
+    this.getTranslate();
   }
 
   startTimer(): void {
+    if (this.wordTo.today) {
+      this.timer = 10;
+
+    } else {
+      this.timer = 25;
+    }
     this.isGetWord = true;
-    this.timer = 25;
     this.interval = setInterval(() => {
       if (this.timer > 0) {
         this.timer--;

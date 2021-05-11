@@ -2,10 +2,12 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { Word } from '../domain/word';
-import { Participant } from '../domain/participant';
-import { TokenStorageService } from '../auth/token-storage.service';
+import {Word} from '../domain/word';
+import {TokenStorageService} from '../auth/token-storage.service';
+import {PaymentInformationTo} from '../domain/paymentInformationTo';
+
 const TOKEN_HEADER_KEY = 'Authorization';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,23 +18,16 @@ export class WordService {
   constructor(private http: HttpClient, private token: TokenStorageService) {
   }
 
-  getWord(selectedLanguage: string): Observable<any> {
-    return this.http.get(this.url + '/' + selectedLanguage);
+  getWord(selectedLanguage: string, participantId: string): Observable<any> {
+    return this.http.get(this.url + '/' + selectedLanguage + '/' + participantId);
   }
 
-  getTranslate(): Observable<any>  {
+  getTranslate(): Observable<any> {
     return this.http.get(this.url + '/translate');
   }
 
-  getMoney(word: string, participant: string): Observable<any> {
-    let params = new HttpParams();
-    params = params.set('participant', participant);
-    params = params.set('word', word);
-    const httpOptions = {
-      params
-    };
-
-    return this.http.get(environment.URI + '/api/money/', httpOptions);
+  getMoney(payInfTo: PaymentInformationTo): Observable<any> {
+    return this.http.post(environment.URI + '/api/money', payInfTo);
   }
 
   // tslint:disable-next-line:typedef
@@ -46,7 +41,7 @@ export class WordService {
       responseType: 'text'
     });
     const token = this.token.getToken();
-    req = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+    req = req.clone({headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
 
     return this.http.request(req);
   }

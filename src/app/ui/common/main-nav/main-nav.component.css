@@ -10,3 +10,7 @@
 .navbar {
   background-color: rgba(18, 54, 54, 0.24);
 }
+
+nav {
+  height: 60px;
+}
