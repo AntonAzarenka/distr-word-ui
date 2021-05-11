@@ -90,6 +90,9 @@ export class ChooseWordsComponent implements OnInit {
   }
 
   getWord(): void {
+    if (this.isGotWord){
+      this.getTranslate();
+    }
     this.pauseTimer();
     this.isGotWord = true;
     this.checkLogged();
@@ -133,6 +136,7 @@ export class ChooseWordsComponent implements OnInit {
       this.countOfWords = this.countOfWords + 1;
       this.isTranslated = true;
       this.pauseTimer();
+      this.isGotWord = false;
     }
   }
 
@@ -156,13 +160,12 @@ export class ChooseWordsComponent implements OnInit {
       });
       this.pauseTimer();
       setTimeout(() => {
-        console.log(this.money);
         this.snackBar.open(this.money.message, 'INFO', {
           horizontalPosition: 'left',
           verticalPosition: 'top',
           duration: 4000,
         });
-      }, 500);
+      }, 1000);
     } else {
       this.snackBar.open('Please get a word before take money', 'INFO', {
         horizontalPosition: 'left',
@@ -176,9 +179,8 @@ export class ChooseWordsComponent implements OnInit {
   startTimer(): void {
     if (this.wordTo.today) {
       this.timer = 10;
-
     } else {
-      this.timer = 25;
+      this.timer = 23;
     }
     this.isGetWord = true;
     this.interval = setInterval(() => {
