@@ -90,11 +90,12 @@ export class ChooseWordsComponent implements OnInit {
   }
 
   getWord(): void {
-    if (this.isGotWord){
+    if (!this.isTranslated) {
       this.getTranslate();
     }
     this.pauseTimer();
     this.isGotWord = true;
+    this.isTranslated = false;
     this.checkLogged();
     this.resetTable();
     this.resetWord();
@@ -136,8 +137,11 @@ export class ChooseWordsComponent implements OnInit {
       this.countOfWords = this.countOfWords + 1;
       this.isTranslated = true;
       this.pauseTimer();
-    //  this.isGotWord = false;
     }
+  }
+
+  addToTable(): void {
+
   }
 
   checkLogged(): void {
@@ -174,7 +178,9 @@ export class ChooseWordsComponent implements OnInit {
         duration: 4000,
       });
     }
-    this.getTranslate();
+    if (!this.isTranslated) {
+      this.getTranslate();
+    }
   }
 
   startTimer(): void {
