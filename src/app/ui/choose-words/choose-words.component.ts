@@ -136,7 +136,7 @@ export class ChooseWordsComponent implements OnInit {
       this.countOfWords = this.countOfWords + 1;
       this.isTranslated = true;
       this.pauseTimer();
-      this.isGotWord = false;
+    //  this.isGotWord = false;
     }
   }
 
@@ -157,6 +157,7 @@ export class ChooseWordsComponent implements OnInit {
     if (this.isGotWord) {
       this.wordService.getMoney(new PaymentInformationTo(this.wordTo, this.selectedParticipant)).subscribe((data: any) => {
         this.money = (data);
+        this.isGotWord = false;
       });
       this.pauseTimer();
       setTimeout(() => {
@@ -187,9 +188,10 @@ export class ChooseWordsComponent implements OnInit {
       if (this.timer > 0) {
         this.timer--;
       } else {
-        this.isGetWord = false;
         this.getTranslate();
+        this.isGotWord = true;
         this.getMoney();
+        this.isGotWord = false;
       }
     }, 1000);
   }
