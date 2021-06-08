@@ -38,7 +38,7 @@ export class ChooseWordsComponent implements OnInit {
   Collection: Array<Word> = new Array<Word>();
 
   dataSource = new MatTableDataSource<Word>();
-  displayedColumns: string[] = ['word', 'translate'];
+  displayedColumns: string[] = ['id', 'word', 'translate'];
 
   languages: Language[] = [
     {title: 'RU', description: 'It will get only Russian words!'},
@@ -57,16 +57,18 @@ export class ChooseWordsComponent implements OnInit {
 
   countOfWords = 1;
   errorMessage = '';
+  isDisabledGetWordButton = false;
+  isDisabledGetMoneyButton = true;
+  isPause = false;
 
-  isGetWord = false;
-  timer = 0;
+  timer = 20;
+  pauseSeconds = 0;
 
   // tslint:disable-next-line:new-parens
   money = new class implements Message {
     message: string;
     price: string;
   };
-
 
   // tslint:disable-next-line:new-parens
   wordTo: Word = new Word(' ', '', '', false);
@@ -75,7 +77,6 @@ export class ChooseWordsComponent implements OnInit {
   interval;
 
   // tslint:disable-next-line:new-parens
-
   ngOnInit(): void {
     this.getParticipants();
     this.checkLogged();
@@ -90,11 +91,10 @@ export class ChooseWordsComponent implements OnInit {
   }
 
   getWord(): void {
-    if (!this.isTranslated) {
-      this.getTranslate();
-    }
     this.pauseTimer();
     this.isGotWord = true;
+    this.isDisabledGetWordButton = true;
+    this.isDisabledGetMoneyButton = false;
     this.isTranslated = false;
     this.checkLogged();
     this.resetTable();
@@ -102,22 +102,11 @@ export class ChooseWordsComponent implements OnInit {
     this.wordService.getWord(this.selectedLanguage, this.selectedParticipant.id).subscribe((data: any) => {
       this.wordTo = (data);
       setTimeout(() => {
-        if (this.wordTo.today) {
-          this.timer = 10;
-          this.startTimer();
-        } else {
-          this.timer = 25;
-          this.startTimer();
-
-        }
+        this.startTimer(20);
       }, 500);
     }, error => {
       this.errorMessage = error.error.message;
-      this.snackBar.open(this.errorMessage, 'INFO', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 4500,
-      });
+      this.showMessage(this.errorMessage);
     });
   }
 
@@ -132,16 +121,16 @@ export class ChooseWordsComponent implements OnInit {
   getTranslate(): void {
     if (this.isGotWord) {
       this.currentParticipant = this.selectedParticipant;
-      this.Collection[this.countOfWords - 1] = new Word(this.countOfWords.toString(), this.wordTo.word, this.wordTo.translate, false);
-      this.dataSource.data = this.Collection;
-      this.countOfWords = this.countOfWords + 1;
+      if (!this.wordTo.today) {
+        this.Collection[this.countOfWords - 1] = new Word(this.countOfWords.toString(), this.wordTo.word, this.wordTo.translate, false);
+        this.dataSource.data = this.Collection;
+        this.countOfWords = this.countOfWords + 1;
+        console.log(this.countOfWords);
+      }
+      this.isDisabledGetWordButton = false;
       this.isTranslated = true;
       this.pauseTimer();
     }
-  }
-
-  addToTable(): void {
-
   }
 
   checkLogged(): void {
@@ -155,54 +144,63 @@ export class ChooseWordsComponent implements OnInit {
       this.countOfWords = 1;
     }
     this.money.message = '';
+    this.resetPause();
   }
 
   getMoney(): void {
-    if (this.isGotWord) {
-      this.wordService.getMoney(new PaymentInformationTo(this.wordTo, this.selectedParticipant)).subscribe((data: any) => {
-        this.money = (data);
-        this.isGotWord = false;
-      });
-      this.pauseTimer();
-      setTimeout(() => {
-        this.snackBar.open(this.money.message, 'INFO', {
-          horizontalPosition: 'left',
-          verticalPosition: 'top',
-          duration: 4000,
-        });
-      }, 1000);
-    } else {
-      this.snackBar.open('Please get a word before take money', 'INFO', {
-        horizontalPosition: 'left',
-        verticalPosition: 'top',
-        duration: 4000,
-      });
-    }
-    if (!this.isTranslated) {
-      this.getTranslate();
-    }
+    this.wordService.getMoney(new PaymentInformationTo(this.wordTo, this.selectedParticipant)).subscribe((data: any) => {
+      this.money = (data);
+      this.isGotWord = false;
+    });
+    this.pauseTimer();
+    this.isDisabledGetWordButton = false;
+    this.isDisabledGetMoneyButton = true;
   }
 
-  startTimer(): void {
-    if (this.wordTo.today) {
-      this.timer = 10;
-    } else {
-      this.timer = 23;
-    }
-    this.isGetWord = true;
-    this.interval = setInterval(() => {
-      if (this.timer > 0) {
-        this.timer--;
-      } else {
-        this.getTranslate();
-        this.isGotWord = true;
-        this.getMoney();
-        this.isGotWord = false;
+  startTimer(seconds: number): void {
+    if (!this.isTranslated) {
+      this.timer = seconds;
+      if (this.wordTo.today) {
+        this.timer = 10;
       }
-    }, 1000);
+      this.interval = setInterval(() => {
+        if (this.timer > 0) {
+          this.timer--;
+        } else {
+          this.getTranslate();
+          this.isGotWord = true;
+          this.getMoney();
+          this.isGotWord = false;
+        }
+      }, 1000);
+    }
   }
 
   pauseTimer(): void {
     clearInterval(this.interval);
+  }
+
+  pause(): void {
+    this.pauseSeconds = this.timer;
+    this.pauseTimer();
+    this.isPause = true;
+  }
+
+  resetPause(): void {
+    this.pauseSeconds = 0;
+    this.isPause = false;
+  }
+
+  play(): void {
+    this.startTimer(this.pauseSeconds);
+    this.isPause = false;
+  }
+
+  showMessage(message: string): void {
+    this.snackBar.open(message, 'INFO', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 4500,
+    });
   }
 }
