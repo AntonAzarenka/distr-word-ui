@@ -67,7 +67,7 @@ mat-header-cell {
   display: block;
   text-align: center;
   color: #ff0000;
-  font-size: 50px;
+  font-size: 80px;
   padding-top: 15px;
 }
 
@@ -75,4 +75,25 @@ mat-header-cell {
   height: 400px;
   overflow: auto;
   min-height: 200px;
+}
+
+.text-money {
+  color: #ffe609;
+  font-size: 45px;
+}
+
+.pause-button {
+  display: block;
+  margin-top: 30px;
+  margin-left: 31%;
+  text-align: center;
+  color: #ff0000;
+}
+
+.play-button {
+  display: block;
+  margin-top: 30px;
+  margin-left: 5px;
+  text-align: center;
+  color: #ff0000;
 }
