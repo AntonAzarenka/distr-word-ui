@@ -44,6 +44,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { CheckLoginComponent } from './ui/common/security/check-login/check-login.component';
+import { SignUpComponent } from './ui/common/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +108,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     UiModule,
     ChartModule
   ],
-  providers: [httpInterceptorProviders, WordsTableComponent],
+  providers: [httpInterceptorProviders, WordsTableComponent, CheckLoginComponent, SignUpComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

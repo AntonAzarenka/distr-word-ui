@@ -8,6 +8,8 @@ import {Word} from '../../domain/word';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {PaymentInformationTo} from '../../domain/paymentInformationTo';
+import { ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 
 interface Language {
   title: string;
@@ -123,10 +125,11 @@ export class ChooseWordsComponent implements OnInit {
       this.currentParticipant = this.selectedParticipant;
       if (!this.wordTo.today) {
         this.Collection[this.countOfWords - 1] = new Word(this.countOfWords.toString(), this.wordTo.word, this.wordTo.translate, false);
+        this.Collection.sort((a,b) => a.id > b.id? -1 : -1);   
         this.dataSource.data = this.Collection;
         this.countOfWords = this.countOfWords + 1;
-        console.log(this.countOfWords);
       }
+      this.Collection.sort((a,b) => a.id > b.id? -1 : -1);   
       this.isDisabledGetWordButton = false;
       this.isTranslated = true;
       this.pauseTimer();
