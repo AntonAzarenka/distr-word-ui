@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
+const TEAM_NAME = "TeamName"
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,15 @@ export class TokenStorageService {
   // tslint:disable-next-line:typedef
   public signOut() {
     window.sessionStorage.clear();
+  }
+
+  public saveTeamName(name: string) {
+    window.sessionStorage.removeItem(TEAM_NAME);
+    window.sessionStorage.setItem(TEAM_NAME, name);
+  }
+
+  public getTeamName(): string {
+    return sessionStorage.getItem(TEAM_NAME);
   }
 
   // tslint:disable-next-line:typedef

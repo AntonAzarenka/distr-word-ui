@@ -58,10 +58,14 @@ import { ContributeComponent } from './contribute/contribute.component';
 import { ChartModule } from 'primeng/chart';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { LeftPannelComponent } from './common/left-pannel/left-pannel.component';
+import { PersonalContributeComponent } from './contribute/personal/personal-contribute/personal-contribute.component';
+import { SignUpComponent } from './common/sign-up/sign-up.component';
+import { CheckLoginComponent } from './common/security/check-login/check-login.component';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent, ParticipantComponent, ParticipantEditModalComponent, ContributeComponent],
+  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent, ParticipantComponent, ParticipantEditModalComponent, ContributeComponent, LeftPannelComponent, PersonalContributeComponent, SignUpComponent, CheckLoginComponent],
   schemas:  [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   exports: [
     LayoutComponent,
@@ -69,7 +73,9 @@ import { BrowserModule } from '@angular/platform-browser';
     ChooseWordsComponent,
     MatMenuModule,
     ChartModule,
-    ContributeComponent
+    ContributeComponent,
+    CheckLoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,

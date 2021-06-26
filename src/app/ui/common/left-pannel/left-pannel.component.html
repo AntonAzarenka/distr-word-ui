@@ -1,0 +1,16 @@
+<div class="panel">
+     <mat-menu #menu="matMenu"></mat-menu>
+    <button mat-menu-item routerLink="/words">
+      <span>Main</span>
+    </button>
+    <button [disabled]="!isLoggedIn" mat-menu-item routerLink="/words/setting">
+        <span>Wordbook</span>
+      </button>
+      <button [disabled]="!isLoggedIn" mat-menu-item routerLink="/participants">
+        <span>Participants</span>
+      </button>
+      <button [disabled]="!isLoggedIn"  mat-menu-item routerLink="/contribute">
+        <span>Moneybox</span>
+      </button>
+</div>
+    
