@@ -1,2 +1,50 @@
-<button routerLink="/words">Back</button>
-<div class="message"><h1>This page will be implemented later.</h1></div>
+<div class="card">
+  <div class="card-body" *ngIf="isSignedUp; else signupForm">
+      Вы успешно зарегистрированы!
+      <span><a color="primary" mat-raised-button routerLink="/words">Ok</a></span>
+  </div>
+  <ng-template #signupForm>
+  <h4 class="card-header">Register</h4>
+  <div class="card-body">
+    <form name="form" class="absolute-Center" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group">
+          <label for="username">Team</label>
+          <mat-form-field appearance="outline">
+            <mat-select [(value)]="teamName">
+              <mat-option [value]="team" *ngFor="let team of teams">{{ team }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+              <label for="username">Email</label>
+              <mat-form-field class="form-group absolute-Center">
+                <input class="absolute-Center" matInput type="text" name="username" [(ngModel)]="form.username" #username="ngModel"
+                       placeholder="Введите email"
+                       required="true"/>
+                <mat-hint *ngIf="f.submitted && username.invalid">
+                  <mat-hint *ngIf="username.errors.required">Необходимо ввести email</mat-hint>
+                </mat-hint>
+              </mat-form-field>
+        </div>
+        <div class="form-group">
+              <label for="password">Password</label>
+              <mat-form-field class="absolute-Center" >
+                <input class="absolute-Center" type="password" matInput [(ngModel)]="form.password" #password="ngModel"
+                       placeholder="Введите пароль" name="password" required="true" minlength="6"/>
+                <mat-hint *ngIf="f.submitted && password.invalid">
+                  <mat-hint *ngIf="password.errors.required">Нобходимо ввести пароль</mat-hint>
+                  <mat-hint *ngIf="password.errors.minlength">Пароль должен быть не менее 6 символов</mat-hint>
+                </mat-hint>
+              </mat-form-field>
+        </div>
+        <div class="form-group">
+              <button class="btn btn-primary">
+                  <!--span  class="spinner-border spinner-border-sm mr-1"></span-->
+                  Register
+              </button>
+              <a routerLink="/words" class="btn btn-link">Cancel</a>
+        </div>
+      </form>
+  </div>
+</ng-template>
+</div>

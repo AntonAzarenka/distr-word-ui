@@ -19,6 +19,11 @@ export class ParticipantService {
     return this.http.get(this.url);
   }
 
+  // tslint:disable-next-line:typedef
+  public getParticipantsOFTeam(teamName: string) {
+    return this.http.get(this.url + teamName);
+  }
+
   delete(id: string): Observable<any> {
     let params = new HttpParams();
     params = params.set('uid', id);

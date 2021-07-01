@@ -7,3 +7,16 @@ h1 {
     font-size: 50px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+.card {
+    margin-top: 20px;
+}
+
+mat-form-field{
+    width: 100%;
+    height: 50px;
+}
+
+mat-select {
+    height: min-content;
+}

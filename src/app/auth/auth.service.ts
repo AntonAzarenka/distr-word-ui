@@ -17,6 +17,7 @@ export class AuthService {
 
   private loginUrl = environment.URI + '/api/auth/signin';
   private signupUrl = environment.URI + '/api/auth/signup';
+  private url = environment.URI + '/api/auth/user/team';
 
   constructor(private http: HttpClient) {
   }
@@ -27,5 +28,9 @@ export class AuthService {
 
   signUp(info: SignUpInfo): Observable<string> {
     return this.http.post<string>(this.signupUrl, info, httpOptions);
+  }
+
+  public getTeam() {
+    return this.http.get(this.url);
   }
 }

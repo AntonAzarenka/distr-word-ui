@@ -3,13 +3,13 @@
     <button mat-menu-item routerLink="/words">
       <span>Main</span>
     </button>
-    <button [disabled]="!isLoggedIn" mat-menu-item routerLink="/words/setting">
+    <button *ngIf="isLoggedIn" mat-menu-item routerLink="/words/setting">
         <span>Wordbook</span>
       </button>
-      <button [disabled]="!isLoggedIn" mat-menu-item routerLink="/participants">
+      <button *ngIf="isLoggedIn" mat-menu-item routerLink="/participants">
         <span>Participants</span>
       </button>
-      <button [disabled]="!isLoggedIn"  mat-menu-item routerLink="/contribute">
+      <button *ngIf="isLoggedIn"  mat-menu-item routerLink="/contribute">
         <span>Moneybox</span>
       </button>
 </div>
