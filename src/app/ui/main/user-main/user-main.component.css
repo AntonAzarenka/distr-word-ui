@@ -1,0 +1,17 @@
+.main {
+    margin: 0;
+}
+
+.col-8 {
+    margin: 0 0 0 0;
+    padding-top: 50px;
+    text-align: center;
+}
+
+h1 {
+    font-size: xx-large;
+}
+
+.button{
+    margin: 3px 3px 3px 3px;
+}

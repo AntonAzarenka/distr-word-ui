@@ -6,11 +6,12 @@ import {ParticipantComponent} from './ui/participant/participant.component';
 import { ContributeComponent } from './ui/contribute/contribute.component';
 import { PersonalContributeComponent } from './ui/contribute/personal/personal-contribute/personal-contribute.component';
 import { SignUpComponent } from './ui/common/sign-up/sign-up.component';
+import { MainComponent } from './ui/main/main/main.component';
 
 const routes: Routes = [
   {path: 'words/setting', component: WordsSettingComponent},
   {path: '', redirectTo: '/words', pathMatch: 'full'},
-  {path: 'words', component: ChooseWordsComponent},
+  {path: 'words', component: MainComponent},
   {path: 'participants', component: ParticipantComponent},
   {path: 'contribute', component: ContributeComponent},
   {path: 'contribute/personal', component: PersonalContributeComponent},

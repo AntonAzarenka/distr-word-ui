@@ -22,6 +22,10 @@ export class WordService {
     return this.http.get(this.url + '/' + selectedLanguage + '/' + participantId);
   }
 
+  getPersonalWord(selectedLanguage: string, wordbook: string): Observable<any> {
+    return this.http.get(this.url + '/personal/' + selectedLanguage + '/' + wordbook);
+  }
+
   getTranslate(): Observable<any> {
     return this.http.get(this.url + '/translate');
   }

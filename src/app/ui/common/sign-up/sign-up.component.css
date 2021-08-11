@@ -20,3 +20,7 @@ mat-form-field{
 mat-select {
     height: min-content;
 }
+
+.verify-button {
+    margin-top: 40px;
+}

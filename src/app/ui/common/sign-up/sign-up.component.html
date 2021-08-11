@@ -1,13 +1,14 @@
 <div class="card">
   <div class="card-body" *ngIf="isSignedUp; else signupForm">
-      Вы успешно зарегистрированы!
+      Вы успешно зарегистрированы! Вам на почту было выслано письмо с подтверждением!
       <span><a color="primary" mat-raised-button routerLink="/words">Ok</a></span>
   </div>
   <ng-template #signupForm>
   <h4 class="card-header">Register</h4>
   <div class="card-body">
     <form name="form" class="absolute-Center" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-        <div class="form-group">
+      <div class="row">
+        <div class="form-group col-10">
           <label for="username">Team</label>
           <mat-form-field appearance="outline">
             <mat-select [(value)]="teamName">
@@ -15,7 +16,22 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="form-group">
+        <div class="col-2 absolute-Center">
+          <a class="verify-button  btn btn-primary" (click)="getParticipants()">
+            <!--span  class="spinner-border spinner-border-sm mr-1"></span-->
+            Verify
+          </a>
+        </div>
+      </div>
+      <div *ngIf="isChoosedTeam" class="form-group">
+        <label for="username">Name</label>
+        <mat-form-field appearance="outline">
+          <mat-select [(value)]="name">
+            <mat-option [value]="participant.name" *ngFor="let participant of participants">{{ participant.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+        <div *ngIf="isChoosedTeam" class="form-group">
               <label for="username">Email</label>
               <mat-form-field class="form-group absolute-Center">
                 <input class="absolute-Center" matInput type="text" name="username" [(ngModel)]="form.username" #username="ngModel"
@@ -26,7 +42,7 @@
                 </mat-hint>
               </mat-form-field>
         </div>
-        <div class="form-group">
+        <div *ngIf="isChoosedTeam" class="form-group">
               <label for="password">Password</label>
               <mat-form-field class="absolute-Center" >
                 <input class="absolute-Center" type="password" matInput [(ngModel)]="form.password" #password="ngModel"
@@ -37,7 +53,7 @@
                 </mat-hint>
               </mat-form-field>
         </div>
-        <div class="form-group">
+        <div *ngIf="isChoosedTeam" class="form-group">
               <button class="btn btn-primary">
                   <!--span  class="spinner-border spinner-border-sm mr-1"></span-->
                   Register

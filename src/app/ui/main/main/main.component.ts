@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/auth/auth.service';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
-  selector: 'app-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.css']
 })
-export class LayoutComponent implements OnInit {
+export class MainComponent implements OnInit {
 
   constructor(private storage: TokenStorageService) { }
 
