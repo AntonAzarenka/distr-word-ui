@@ -23,5 +23,19 @@ mat-select {
 }
 
 .btn {
-  margin: 40px 3px;
+  margin: 40px 3px 3px 3px ;
+}
+
+.text {
+  display: flex;
+  justify-content: space-between;
+  flex: auto;
+}
+
+.text mat-form-field {
+  flex: auto;
+}
+
+.text a {
+  flex: initial;
 }

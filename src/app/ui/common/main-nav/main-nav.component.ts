@@ -54,6 +54,11 @@ export class MainNavComponent implements OnInit {
       },
       error => {
         this.errorMessage = error.error.message;
+        this.snackBar.open(error.error.message, 'ERROR', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          duration: 4500,
+        });
         this.isLoginFailed = true;
       }
     );

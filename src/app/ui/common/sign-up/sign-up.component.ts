@@ -49,8 +49,11 @@ export class SignUpComponent implements OnInit {
     this.errorMessage = error.error.message;
     this.isSignUpFailed = true;
     this.snackBar.open(error.error.message, 'ERROR', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
       duration: 5000,
     });
+    this.isChoosedTeam = false;
   }
    );
   }
@@ -71,6 +74,8 @@ export class SignUpComponent implements OnInit {
         this.errorMessage = error.error.message;
         this.isSignUpFailed = true;
         this.snackBar.open(error.error.message, 'ERROR', {
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
           duration: 5000,
         });
       }

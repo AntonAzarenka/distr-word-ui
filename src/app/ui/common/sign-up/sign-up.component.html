@@ -7,8 +7,8 @@
   <h4 class="card-header">Register</h4>
   <div class="card-body">
     <form name="form" class="absolute-Center" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-      <div class="row">
-        <div class="form-group col-10">
+      <div class="text">
+        <div class="form-group team">
           <label for="username">Team</label>
           <mat-form-field appearance="outline">
             <mat-select [(value)]="teamName">
@@ -16,7 +16,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-2 absolute-Center">
+        <div class="button-class">
           <a class="verify-button  btn btn-primary" (click)="getParticipants()"> Verify </a>
           <a routerLink="/home" class="verify-button  btn btn-danger">Cancel</a>
         </div>
