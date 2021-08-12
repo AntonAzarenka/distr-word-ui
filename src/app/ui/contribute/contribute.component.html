@@ -1,5 +1,4 @@
-<div *ngIf="isLogged">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
       <ng-container matColumnDef="name" [sticky]="true">
         <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -14,9 +13,4 @@
 
       <tr class="header-row" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-</div>
-  <div *ngIf="!isLogged">
-    <h1 style="text-align: center; color: #936d33;">Please authorise</h1>
-  </div>
+</table>

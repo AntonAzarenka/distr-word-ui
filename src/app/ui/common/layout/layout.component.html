@@ -1,9 +1,15 @@
 <app-main-nav></app-main-nav>
-<div class="back row">
-  <div class="col-2">
-  <app-left-pannel></app-left-pannel>
-</div>
-  <div class="col-8">
-    <router-outlet></router-outlet>
+<div class="back">
+  <div class="row">
+    <div *ngIf="!isTeam && isLoggedIn" class="col-2">
+      <app-left-pannel></app-left-pannel>
+    </div>
+    <div *ngIf="isTeam && isLoggedIn" class="col-2">
+      <app-user-left-panel></app-user-left-panel>
+    </div>
+    <div *ngIf="!isLoggedIn" class="col-2"></div>
+    <div class="col-8">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

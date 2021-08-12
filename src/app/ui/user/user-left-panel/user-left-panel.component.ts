@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
-  selector: 'app-left-pannel',
-  templateUrl: './left-pannel.component.html',
-  styleUrls: ['./left-pannel.component.css']
+  selector: 'app-user-left-panel',
+  templateUrl: './user-left-panel.component.html',
+  styleUrls: ['./user-left-panel.component.css']
 })
-export class LeftPannelComponent implements OnInit {
+export class UserLeftPanelComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService) { }
 
@@ -15,4 +15,5 @@ export class LeftPannelComponent implements OnInit {
   ngOnInit(): void {
     this.tokenStorage.isLogged();
   }
+
 }

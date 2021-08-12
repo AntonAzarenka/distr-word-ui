@@ -61,7 +61,7 @@ export class ParticipantComponent implements OnInit{
   }
 
   save(part: Participant, isUpdate: boolean): void {
-    if(isUpdate){
+    if (isUpdate){
       this.participantService.edit(part).subscribe((data: any) => {
         this.getParticipants();
       });
@@ -73,7 +73,7 @@ export class ParticipantComponent implements OnInit{
     this.isShowedAdding = false;
   }
 
-  addParticipant():void {
+  addParticipant(): void {
     this.save(new Participant(null, this.name), false);
   }
 

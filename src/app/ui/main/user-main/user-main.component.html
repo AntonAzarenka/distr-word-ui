@@ -1,0 +1,41 @@
+<div class="main">
+    <div class="row">
+        <div class="col-4">
+          <div class="nav-item dropdown nav-fill dropdown-cust">
+            <mat-form-field appearance="outline">
+              <mat-label>Language</mat-label>
+              <mat-select [(value)]="selectedLanguage">
+                <mat-option [value]="language.title" *ngFor="let language of languages">{{ language.title }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="nav-item dropdown nav-fill dropdown-cust">
+            <mat-form-field appearance="outline">
+              <mat-label>Wordbook</mat-label>
+              <mat-select [(value)]="selectedWordbook">
+                <mat-option [value]="wordbook" *ngFor="let wordbook of wordbooks">{{ wordbook.id }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div>
+            <button [disabled]="!isTranslated" mat-raised-button class="button" color="Basic" (click)="getWord()">Get Word</button>
+          </div>
+          <div>
+            <button [disabled]="isTranslated" mat-raised-button class="button" color="Basic" (click)="getTranslate()">Translate</button>
+          </div>
+          <div>
+            <button mat-raised-button class="button" color="Basic" (click)="addToWordbook()">Add to Wordbook</button>
+          </div>
+        </div>
+        
+        <div class="col-8">
+          <div>
+            <h1 *ngIf="!isTranslated">{{wordTo.word}}</h1>
+          </div>
+          <div>
+            <h1 *ngIf="isTranslated">{{wordTo.word}} - {{wordTo.translate}}</h1>
+          </div>
+        </div>
+    </div>
+</div>

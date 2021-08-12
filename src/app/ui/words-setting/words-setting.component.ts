@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {WordService} from '../../service/word.service';
-import { TokenStorageService } from 'src/app/auth/token-storage.service';
-import { Word } from 'src/app/domain/word';
-import { WordsTableComponent } from './words-table/words-table.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {TokenStorageService} from 'src/app/auth/token-storage.service';
+import {Word} from 'src/app/domain/word';
+import {WordsTableComponent} from './words-table/words-table.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-words-setting',
@@ -16,15 +16,16 @@ export class WordsSettingComponent implements OnInit {
   constructor(private wordService: WordService,
               private tokenStorage: TokenStorageService,
               private wt: WordsTableComponent,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar) {
+  }
 
   selectedFiles: FileList = null;
   currentFileUpload: File;
-  progress: { percentage: number } = { percentage: 0 };
+  progress: { percentage: number } = {percentage: 0};
 
   isLogged: boolean;
-  isShowedAdding: boolean = false;
-  isShowedUpload: boolean = false;
+  isShowedAdding = false;
+  isShowedUpload = false;
 
   word: string;
   translate: string;
@@ -34,15 +35,14 @@ export class WordsSettingComponent implements OnInit {
     this.checkLogged();
   }
 
-  // tslint:disable-next-line:typedef
-  selectFile(event) {
+  selectFile(event): void {
     this.selectedFiles = event.target.files;
   }
 
   // tslint:disable-next-line:typedef
   upload() {
     this.progress.percentage = 0;
-    if(this.selectedFiles !== null) {
+    if (this.selectedFiles !== null) {
       this.currentFileUpload = this.selectedFiles.item(0);
       this.wordService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
@@ -59,7 +59,7 @@ export class WordsSettingComponent implements OnInit {
       this.selectedFiles = null;
       this.isShowedUpload = false;
     } else {
-      this.snackBar.open("Please choose a file to upload", 'INFO', {
+      this.snackBar.open('Please choose a file to upload', 'INFO', {
         horizontalPosition: 'left',
         verticalPosition: 'top',
         duration: 4000,
@@ -67,8 +67,8 @@ export class WordsSettingComponent implements OnInit {
     }
   }
 
-  checkLogged(): void{
-    this.isLogged = this.tokenStorage.isLogged();
+  checkLogged(): void {
+    this.tokenStorage.isLogged();
   }
 
   showUpload(): void {

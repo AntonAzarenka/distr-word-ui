@@ -17,7 +17,8 @@ export class AuthService {
 
   private loginUrl = environment.URI + '/api/auth/signin';
   private signupUrl = environment.URI + '/api/auth/signup';
-  private url = environment.URI + '/api/auth/user/team';
+  private getTeamsUrl = environment.URI + '/api/auth/user/team';
+  private getPArtisipantsUrl = environment.URI + '/api/auth/';
 
   constructor(private http: HttpClient) {
   }
@@ -30,7 +31,12 @@ export class AuthService {
     return this.http.post<string>(this.signupUrl, info, httpOptions);
   }
 
-  public getTeam() {
-    return this.http.get(this.url);
+  public getTeams() {
+    return this.http.get(this.getTeamsUrl);
+  }
+
+  // tslint:disable-next-line:typedef
+  public getParticipantsOfTeam(teamName: string) {
+    return this.http.get(this.getPArtisipantsUrl + teamName);
   }
 }
