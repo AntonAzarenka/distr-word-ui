@@ -18,8 +18,7 @@ export class MainNavComponent implements OnInit {
   constructor(private authService: AuthService,
               private tokenStorage: TokenStorageService,
               private chooseWords: ChooseWordsComponent,
-              public snackBar: MatSnackBar,
-             ) { }
+              public snackBar: MatSnackBar) { }
 
   form: any = {};
   isLoggedIn = false;
@@ -40,7 +39,6 @@ export class MainNavComponent implements OnInit {
       this.form.username,
       this.form.password
       );
-
     this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);
@@ -52,6 +50,7 @@ export class MainNavComponent implements OnInit {
         this.isLoggedIn = this.tokenStorage.isLogged();
         this.roles = this.tokenStorage.getAuthorities();
         this.reloadPage();
+        window.location.assign('/words');
       },
       error => {
         this.errorMessage = error.error.message;
@@ -63,11 +62,13 @@ export class MainNavComponent implements OnInit {
 
   reloadPage(): void {
     window.location.reload();
+
   }
 
   logout(): void {
     this.tokenStorage.signOut();
     this.isLoggedIn = false;
     this.reloadPage();
+    window.location.assign('/');
   }
 }

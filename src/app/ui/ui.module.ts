@@ -66,10 +66,12 @@ import { UserLeftPanelComponent } from './user/user-left-panel/user-left-panel.c
 import { MainComponent } from './main/main/main.component';
 import { UserMainComponent } from './main/user-main/user-main.component';
 import { TeamMainComponent } from './main/team-main/team-main.component';
+import { LandingPageComponent } from './common/landing-page/landing-page.component';
+import { UserWordbookComponent } from './user/user-wordbook/user-wordbook.component';
 
 @NgModule({
   // tslint:disable-next-line:max-line-length
-  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent, ParticipantComponent, ParticipantEditModalComponent, ContributeComponent, LeftPannelComponent, PersonalContributeComponent, SignUpComponent, CheckLoginComponent, UserLeftPanelComponent, MainComponent, UserMainComponent, TeamMainComponent],
+  declarations: [LayoutComponent, MainNavComponent, ChooseWordsComponent, WordsSettingComponent, WordsTableComponent, WordEditModalComponent, ParticipantComponent, ParticipantEditModalComponent, ContributeComponent, LeftPannelComponent, PersonalContributeComponent, SignUpComponent, CheckLoginComponent, UserLeftPanelComponent, MainComponent, UserMainComponent, TeamMainComponent, LandingPageComponent, UserWordbookComponent],
   schemas:  [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   exports: [
     LayoutComponent,

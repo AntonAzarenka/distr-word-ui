@@ -17,10 +17,8 @@
           </mat-form-field>
         </div>
         <div class="col-2 absolute-Center">
-          <a class="verify-button  btn btn-primary" (click)="getParticipants()">
-            <!--span  class="spinner-border spinner-border-sm mr-1"></span-->
-            Verify
-          </a>
+          <a class="verify-button  btn btn-primary" (click)="getParticipants()"> Verify </a>
+          <a routerLink="/home" class="verify-button  btn btn-danger">Cancel</a>
         </div>
       </div>
       <div *ngIf="isChoosedTeam" class="form-group">
@@ -57,7 +55,7 @@
                   <!--span  class="spinner-border spinner-border-sm mr-1"></span-->
                   Register
               </button>
-              <a routerLink="/words" class="btn btn-link">Cancel</a>
+              <a routerLink="/home"class="verify-button  btn btn-danger">Cancel</a>
         </div>
       </form>
   </div>

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Word } from 'src/app/domain/word';
-import { WordService } from 'src/app/service/word.service';
+import {Component, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Word} from 'src/app/domain/word';
+import {WordService} from 'src/app/service/word.service';
 
 interface Language {
   title: string;
   description: string;
 }
+
 interface Woordbook {
   id: string;
   code: string;
@@ -20,18 +21,19 @@ interface Woordbook {
 export class UserMainComponent implements OnInit {
 
   constructor(private wordService: WordService,
-    private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar) {
+  }
 
   languages: Language[] = [
     {title: 'RU', description: 'It will get only Russian words!'},
     {title: 'EN', description: 'It will get only English words!'},
     {title: 'ALL', description: 'It will get all languages words!'},
-    ];
-  
+  ];
+
   wordbooks: Woordbook[] = [
     {id: 'Team Wordbook', code: 'TEAM_WORDBOOK'},
-    {id: 'Personal Wordbook', code: 'PERSONAL_WORDBOOK'}//,
-   // {id: 'All Words in application', code: 'TEAM_WORDBOOK'}
+    {id: 'Personal Wordbook', code: 'PERSONAL_WORDBOOK'}// ,
+    // {id: 'All Words in application', code: 'TEAM_WORDBOOK'}
   ];
   errorMessage = '';
   selectedLanguage = this.languages[2].title;
@@ -49,11 +51,11 @@ export class UserMainComponent implements OnInit {
     this.isTranslated = false;
     this.resetWord();
     this.wordService.getPersonalWord(this.selectedLanguage, this.selectedWordbook.code).subscribe((data: any) => {
-        this.wordTo = (data);
-      }, error => {
-        this.errorMessage = error.error.message;
-        this.showMessage(this.errorMessage);
-      }); 
+      this.wordTo = (data);
+    }, error => {
+      this.errorMessage = error.error.message;
+      this.showMessage(this.errorMessage);
+    });
   }
 
   getTranslate(): void {
@@ -61,18 +63,18 @@ export class UserMainComponent implements OnInit {
   }
 
   showMessage(message: string): void {
-      this.snackBar.open(message, 'INFO', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 4500,
-      });
-    }
+    this.snackBar.open(message, 'INFO', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      duration: 4500,
+    });
+  }
 
   resetWord(): void {
-      this.wordTo.word = '';
-      this.wordTo.translate = '';
-      this.wordTo.today = false;
-      this.isTranslated = false;
+    this.wordTo.word = '';
+    this.wordTo.translate = '';
+    this.wordTo.today = false;
+    this.isTranslated = false;
   }
 
   addToWordbook(): void {

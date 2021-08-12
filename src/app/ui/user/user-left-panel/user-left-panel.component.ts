@@ -13,7 +13,7 @@ export class UserLeftPanelComponent implements OnInit {
   isLoggedIn = false;
 
   ngOnInit(): void {
-    this.isLoggedIn = this.tokenStorage.isLogged();
+    this.tokenStorage.isLogged();
   }
 
 }

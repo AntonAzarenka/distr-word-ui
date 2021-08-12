@@ -7,10 +7,14 @@ import { ContributeComponent } from './ui/contribute/contribute.component';
 import { PersonalContributeComponent } from './ui/contribute/personal/personal-contribute/personal-contribute.component';
 import { SignUpComponent } from './ui/common/sign-up/sign-up.component';
 import { MainComponent } from './ui/main/main/main.component';
+import {LandingPageComponent} from './ui/common/landing-page/landing-page.component';
+import {UserWordbookComponent} from './ui/user/user-wordbook/user-wordbook.component';
 
 const routes: Routes = [
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'home', component: LandingPageComponent},
   {path: 'words/setting', component: WordsSettingComponent},
-  {path: '', redirectTo: '/words', pathMatch: 'full'},
+  {path: 'words/user/wordbook', component: UserWordbookComponent},
   {path: 'words', component: MainComponent},
   {path: 'participants', component: ParticipantComponent},
   {path: 'contribute', component: ContributeComponent},

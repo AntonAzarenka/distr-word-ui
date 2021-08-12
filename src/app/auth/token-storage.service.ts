@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
-const TEAM_NAME = "TeamName"
+const TEAM_NAME = 'TeamName';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ const TEAM_NAME = "TeamName"
 export class TokenStorageService {
   private roles: Array<string> = [];
 
-  constructor() {
+  constructor(private route: Router) {
   }
 
   // tslint:disable-next-line:typedef
@@ -19,7 +20,7 @@ export class TokenStorageService {
     window.sessionStorage.clear();
   }
 
-  public saveTeamName(name: string) {
+  public saveTeamName(name: string): void {
     window.sessionStorage.removeItem(TEAM_NAME);
     window.sessionStorage.setItem(TEAM_NAME, name);
   }
@@ -28,8 +29,7 @@ export class TokenStorageService {
     return sessionStorage.getItem(TEAM_NAME);
   }
 
-  // tslint:disable-next-line:typedef
-  public saveToken(token: string) {
+  public saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
@@ -66,6 +66,10 @@ export class TokenStorageService {
   }
 
   public isLogged(): boolean {
-    return this.getUsername() != null;
+    const isLog = this.getUsername() == null;
+    if (this.getUsername() == null) {
+      this.route.navigateByUrl('/');
+    }
+    return !isLog;
   }
 }

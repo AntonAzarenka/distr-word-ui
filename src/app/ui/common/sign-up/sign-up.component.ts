@@ -26,7 +26,7 @@ export class SignUpComponent implements OnInit {
   participants: Participant[];
   teamName: string;
   name: string;
-  
+
   isLogged: boolean;
   constructor(public route: Router,
               private authService: AuthService,
@@ -36,7 +36,7 @@ export class SignUpComponent implements OnInit {
     this.authService.getTeams().subscribe((data:any) => {
       this.teams = data;
       this.teamName = this.teams[0];
-    })
+    });
   }
 
   getParticipants(){

@@ -19,7 +19,7 @@
           </mat-form-field>
         </li>
         <li>
-          <div *ngIf="isLogged">
+          <div>
             <button [disabled]="isDisabledGetMoneyButton" mat-raised-button class="give" color="green" (click)="getMoney()">Give me money</button>
           </div>
         </li>
@@ -50,30 +50,30 @@
       </div>
     </div>
     <!-- Table-->
-    <div *ngIf="isLogged" class="row">
+    <div class="row">
       <div class="col-8 table-container">
        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 matSort">
-  
+
         <ng-container class="column" matColumnDef="id">
           <th class="number column" mat-header-cell *matHeaderCellDef> N </th>
           <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
-  
+
           <ng-container matColumnDef="word">
             <th mat-header-cell *matHeaderCellDef> WORD </th>
             <td mat-cell *matCellDef="let element"> {{element.word}} </td>
           </ng-container>
-  
+
           <ng-container matColumnDef="translate">
             <th mat-header-cell *matHeaderCellDef> TRANSLATE </th>
             <td mat-cell *matCellDef="let element"> {{element.translate}} </td>
           </ng-container>
-  
+
           <tr class="header-row" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
-  
+
       <div class="col-4">
         <div>
             <h1 class="timer">{{timer}}</h1>
@@ -85,4 +85,3 @@
       </div>
     </div>
   </div>
-  

@@ -1,62 +1,63 @@
-<div *ngIf="isLogged">
-  <div class="upload">
-    <div class="load-file">
-      <label class="header">Add/Edit</label>
-      <div *ngIf="!isShowedAdding" class="flex-container">
-        <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
-        (click)=showAdding()>
-          <mat-icon>add</mat-icon>
-        </button>
+<div class="upload">
+  <div class="load-file">
+    <label class="header">Add/Edit</label>
+    <div *ngIf="!isShowedAdding" class="flex-container">
+      <button mat-icon-button color="primary" aria-label="Example icon button with a menu icon"
+              (click)=showAdding()>
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="isShowedAdding" class="row inputs">
+      <div class="col-1 column-one">
+        <mat-form-field class="example-form-field">
+          <mat-label>Add new patricipant</mat-label>
+          <input matInput type="text" [(ngModel)]="name">
+        </mat-form-field>
       </div>
-      <div *ngIf="isShowedAdding" class="row inputs">
-        <div class="col-1 column-one">
-          <mat-form-field class="example-form-field">
-              <mat-label>Add new patricipant</mat-label>
-              <input matInput type="text" [(ngModel)]="name">
-          </mat-form-field>
+      <div class="col-3">
+        <div>
+          <button mat-icon-button color="primary" (click)="hide()">
+            <mat-icon>close</mat-icon>
+          </button>
         </div>
-        <div class="col-3">
-            <div>
-              <button mat-icon-button color="primary" (click)="hide()"><mat-icon>close</mat-icon></button>
-            </div>
-            <div>
-                <button class="btn btn-outline-secondary" (click)="addParticipant()">Save</button>
-            </div>
+        <div>
+          <button class="btn btn-outline-secondary" (click)="addParticipant()">Save</button>
         </div>
-
       </div>
 
-      <div class="col-12 table-container">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    </div>
 
-          <ng-container matColumnDef="name" [sticky]="true">
-            <th mat-header-cell *matHeaderCellDef> Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-          </ng-container>
+    <div class="col-12 table-container">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-          <ng-container matColumnDef="edit" [sticky]="false">
-            <th mat-header-cell *matHeaderCellDef> EDIT</th>
-            <td mat-cell *matCellDef="let element"><button mat-flat-button class="icons" (click)="openDialogEditParticipant(element)">
+        <ng-container matColumnDef="name" [sticky]="true">
+          <th mat-header-cell *matHeaderCellDef> Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit" [sticky]="false">
+          <th mat-header-cell *matHeaderCellDef> EDIT</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-flat-button class="icons" (click)="openDialogEditParticipant(element)">
 
               <mat-icon style="color: rgb(175, 17, 237)">edit</mat-icon>
-            </button></td>
-          </ng-container>
+            </button>
+          </td>
+        </ng-container>
 
-          <ng-container matColumnDef="delete" [sticky]="false">
-            <th mat-header-cell *matHeaderCellDef> DELETE</th>
-            <td mat-cell *matCellDef="let element"><button mat-flat-button class="icons" (click)="delete(element)">
+        <ng-container matColumnDef="delete" [sticky]="false">
+          <th mat-header-cell *matHeaderCellDef> DELETE</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-flat-button class="icons" (click)="delete(element)">
               <mat-icon style="color: rgb(63, 63, 63)">delete</mat-icon>
-            </button></td>
-          </ng-container>
+            </button>
+          </td>
+        </ng-container>
 
-          <tr class="header-row" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="header-row" mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        </table>
-      </div>
+      </table>
     </div>
   </div>
-</div>
-<div *ngIf="!isLogged">
-  <h1 style="text-align: center; color: #936d33;">Please authorise</h1>
 </div>

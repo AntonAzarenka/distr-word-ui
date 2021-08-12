@@ -9,15 +9,19 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(private storage: TokenStorageService) { }
+  constructor(private tokenStorage: TokenStorageService) { }
 
-  isTeam: boolean = true;
+  isTeam = true;
+  isLoggedIn: boolean;
 
   ngOnInit(): void {
-    const roles = this.storage.getAuthorities();
-    if(roles.length > 0) {
-      if(roles.includes("ROLE_TEAM", 0)){
-        this.isTeam = false;
+    this.isLoggedIn = this.tokenStorage.isLogged();
+    if (this.isLoggedIn) {
+      const roles = this.tokenStorage.getAuthorities();
+      if (roles.length > 0) {
+        if (roles.includes('ROLE_TEAM', 0)) {
+          this.isTeam = false;
+        }
       }
     }
   }
