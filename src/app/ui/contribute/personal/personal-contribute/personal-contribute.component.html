@@ -1,2 +1,18 @@
-<button routerLink="/contribute/">Back</button>
-<div class="message"><h1>This page will be implemented later.</h1></div>
+<button (click)="back()">Back</button>
+<div class="body">
+    <div>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="username">Money</label>
+                    <mat-form-field class="input absolute-Center">
+                        <input class="absolute-Center" matInput type="text" name="money" [(ngModel)]="money" value="money"/>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <a class="verify-button  btn btn-primary" (click)="save()"> Save </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

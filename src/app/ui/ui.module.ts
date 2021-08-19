@@ -81,7 +81,8 @@ import { UserWordbookComponent } from './user/user-wordbook/user-wordbook.compon
     ChartModule,
     ContributeComponent,
     CheckLoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    PersonalContributeComponent
   ],
   imports: [
     BrowserModule,

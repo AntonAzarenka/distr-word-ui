@@ -18,9 +18,12 @@ export class ContributeComponent implements OnInit {
   }
   dataSource: Contribute[];
   isLogged: boolean;
-  displayedColumns: string[] = ['name', 'price'];
+  id: string;
+  isPersonal: boolean;
+  displayedColumns: string[] = ['name', 'payed', 'price'];
 
   ngOnInit(): void {
+    this.isPersonal = false;
     this.checkLogged();
     this.getContributes();
   }
@@ -37,5 +40,10 @@ export class ContributeComponent implements OnInit {
       this.dataSource = (data);
       console.log(this.dataSource);
     });
+  }
+
+  save(contributor: Contribute) {
+    this.id = contributor.id;
+   this.isPersonal = true;
   }
 }
